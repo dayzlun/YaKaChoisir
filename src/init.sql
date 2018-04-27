@@ -11,7 +11,7 @@ CREATE TABLE USER(
     login             VARCHAR(64),                
     firstname         VARCHAR(64)     NOT NULL DEFAULT '',
     lastname          VARCHAR(64)     NOT NULL DEFAULT '',
-    student           BOOLEAN,
+    student           BOOLEAN
     access_level      INTEGER         NOT NULL DEFAULT 0,
 
     PRIMARY KEY(email)
