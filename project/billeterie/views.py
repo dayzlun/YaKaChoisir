@@ -16,3 +16,8 @@ class ConnexionPageView(TemplateView):
 class CreateEventPageVew(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'create_event.html', context=None)
+
+
+class EventPageVew(TemplateView):
+    def get(self, request, **kwargs):
+        return render(request, 'event.html', context=None)

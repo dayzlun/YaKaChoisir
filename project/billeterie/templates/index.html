@@ -1,289 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% load static %}
+    {% load static %}
 
-<!-- Titre d'onglet -->
-  <title>Billetterie</title>
-<!-- Encodage -->
-  <meta charset="utf-8">
+    <!-- Titre d'onglet -->
+    <title>Billetterie</title>
+    <!-- Encodage -->
+    <meta charset="utf-8">
 
-<!-- Assure le bon rendering sur tous types d'appareils ainsi que le touch zooming -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Assure le bon rendering sur tous types d'appareils ainsi que le touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Icône d'onglet -->
-<link rel="icon" href="{% static "img/favicon.ico" %}">
+    <!-- Icône d'onglet -->
+    <link rel="icon" href="{% static "img/favicon.ico" %}">
 
-<!-- Icônes Material -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Icônes Material -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-<!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-<!-- Calendar CSS -->
-<link id="bsdp-css" href="{% static "css/bootstrap-datepicker3.min.css" %}" rel="stylesheet">
+    <!-- Calendar CSS -->
+    <link id="bsdp-css" href="{% static "css/bootstrap-datepicker3.min.css" %}" rel="stylesheet">
 
-<!-- jQuery JS -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- jQuery JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Popper JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
-<!-- Bootstrap JS -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<!-- Calendar JS -->
-  <script src="{% static "js/bootstrap-datepicker.min.js" %}"></script>
-  <script src="{% static "locales/bootstrap-datepicker.fr.min.js" %}" charset="UTF-8"></script>
-  <script src="{% static "locales/bootstrap-datepicker.fr-CH.min.js" %}" charset="UTF-8"></script>
+    <!-- Calendar JS -->
+    <script src="{% static "js/bootstrap-datepicker.min.js" %}"></script>
+    <script src="{% static "locales/bootstrap-datepicker.fr.min.js" %}" charset="UTF-8"></script>
+    <script src="{% static "locales/bootstrap-datepicker.fr-CH.min.js" %}" charset="UTF-8"></script>
 
-<style>
+    <style>
 
-/* Polices */
-@font-face {
-  font-family: roboto;
-  src: url({% static "font/roboto-thin.ttf" %});
-}
-@font-face {
-  font-family: rlight;
-  src: url({% static "font/raleway-light.ttf" %});
-}
-@font-face {
-  font-family: rbold;
-  src: url({% static "font/raleway-bold.ttf" %});
-}
-@font-face {
-  font-family: rextrabold;
-  src: url({% static "font/raleway-extrabold.ttf" %});
-}
-@font-face {
-  font-family: rregular;
-  src: url({% static "font/raleway-regular.ttf" %});
-}
-@font-face {
-  font-family: rmedium;
-  src: url({% static "font/raleway-medium.ttf" %});
-}
+        /* Polices */
+        @font-face {
+            font-family: roboto;
+            src: url({% static "font/roboto-thin.ttf" %});
+        }
 
-/* Rend les éléments non-sélectionnables */
-body{
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+        @font-face {
+            font-family: rlight;
+            src: url({% static "font/raleway-light.ttf" %});
+        }
 
-/* Police utilisée */
-body, form {
-  font-family: rregular;
-}
+        @font-face {
+            font-family: rbold;
+            src: url({% static "font/raleway-bold.ttf" %});
+        }
 
-/* Bon dimensionnement des images de promotion des événéments */
-.carousel-inner img {
-  width: 100%;
-  height: 100%;
-}
+        @font-face {
+            font-family: rextrabold;
+            src: url({% static "font/raleway-extrabold.ttf" %});
+        }
 
-/* Diviseur vertical de colonnes */
-.divider {
-  margin: 0 9px;
-  border-left: 1px solid #f2f2f2;
-  border-right: 1px solid #f2f2f2;
-}
+        @font-face {
+            font-family: rregular;
+            src: url({% static "font/raleway-regular.ttf" %});
+        }
 
-/* Stylisation de la bande multicolore du formulaire QuickConnect */
-.colorgraph {
-  height: 7px;
-  border-top: 0;
-  background: #c4e17f;
-  border-radius: 5px;
-  background-image: -webkit-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-  background-image: -moz-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-  background-image: -o-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-  background-image: linear-gradient(to right, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-}
-</style>
+        @font-face {
+            font-family: rmedium;
+            src: url({% static "font/raleway-medium.ttf" %});
+        }
 
-<script>
+        /* Rend les éléments non-sélectionnables */
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-// Javascript après le chargement de tous les éléments DOM
-$(function(){
+        /* Police utilisée */
+        body, form {
+            font-family: rregular;
+        }
 
-  // Inclusion du formulaire QuickConnect dans le popover
-  $('#connect').popover({
-    placement: 'bottom',
-    html: true,
-    content: $('#connectForm').html()
-  });
+        /* Bon dimensionnement des images de promotion des événéments */
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
 
-  // Fermeture du formulaire QuickConnect lors d'un clic en dehors du formulaire
-  $(document).on('click', function (e) {
-    $('[data-toggle=popover]').each(function () {
-      if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0)
-        $('#connect').popover('hide');
-    });
-  });
+        /* Diviseur vertical de colonnes */
+        .divider {
+            margin: 0 9px;
+            border-left: 1px solid #f2f2f2;
+            border-right: 1px solid #f2f2f2;
+        }
 
-  // Initialisation du calendrier
-  $('#calendar').datepicker({
-    weekStart: 1,
-    maxViewMode: 0,
-    todayBtn: "linked",
-    language: "fr",
-    todayHighlight: true
-  })
-    .datepicker('setDate', Date())
-    .on('changeDate', function(e){
-      var now = new Date();
-      now.setHours(0, 0, 0, 0);
-      if (+e.date !== +now)
-        $('#date').html(e.format('u dd/mm'));
-      else
-        $('#date').html("'aujourd'hui");
-    });
-})
+        /* Stylisation de la bande multicolore du formulaire QuickConnect */
+        .colorgraph {
+            height: 7px;
+            border-top: 0;
+            background: #c4e17f;
+            border-radius: 5px;
+            background-image: -webkit-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
+            background-image: -moz-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
+            background-image: -o-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
+            background-image: linear-gradient(to right, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
+        }
+    </style>
 
-</script>
+    <script>
+
+        // Javascript après le chargement de tous les éléments DOM
+        $(function () {
+
+            // Inclusion du formulaire QuickConnect dans le popover
+            $('#connect').popover({
+                placement: 'bottom',
+                html: true,
+                content: $('#connectForm').html()
+            });
+
+            // Fermeture du formulaire QuickConnect lors d'un clic en dehors du formulaire
+            $(document).on('click', function (e) {
+                $('[data-toggle=popover]').each(function () {
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0)
+                        $('#connect').popover('hide');
+                });
+            });
+
+            // Initialisation du calendrier
+            $('#calendar').datepicker({
+                weekStart: 1,
+                maxViewMode: 0,
+                todayBtn: "linked",
+                language: "fr",
+                todayHighlight: true
+            })
+                .datepicker('setDate', Date())
+                .on('changeDate', function (e) {
+                    var now = new Date();
+                    now.setHours(0, 0, 0, 0);
+                    if (+e.date !== +now)
+                        $('#date').html(e.format('u dd/mm'));
+                    else
+                        $('#date').html("'aujourd'hui");
+                });
+        })
+
+    </script>
 
 </head>
 <body>
 
 <!-- Barre de navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-  <!-- Logo EPITA et titre de page -->
-    <a class="navbar-brand" href="/">
-      <img src="{% static "/img/logo-epita.png" %}" alt="logo" style="width:50px;">
-    </a>
-    <a class="navbar-brand" href="/">Billetterie EPITA</a>
+    <div class="container">
+        <!-- Logo EPITA et titre de page -->
+        <a class="navbar-brand" href="/">
+            <img src="{% static "/img/logo-epita.png" %}" alt="logo" style="width:50px;">
+        </a>
+        <a class="navbar-brand" href="/">Billetterie EPITA</a>
 
-  <!-- Bouton menu pour mobiles -->
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target=".navb">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <!-- Bouton menu pour mobiles -->
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target=".navb">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <!-- Liens de navigation -->
-    <div class="collapse navbar-collapse navb">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Accueil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Liste des événements</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">Mes événements</a>
-        </li>
-      </ul>
+        <!-- Liens de navigation -->
+        <div class="collapse navbar-collapse navb">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Liste des événements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Mes événements</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="collapse navbar-collapse justify-content-end navb ml-auto">
+            <form method="get" action="/">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="material-icons">&#xE8B6;</i></span>
+                    </div>
+                    <input type="text" name="s" class="form-control" placeholder="Recherche">
+                </div>
+            </form>
+
+            <!-- Bouton de connexion -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" id="connect">
+                        <button type="button" data-toggle="popover" class="btn-block btn btn-success">Connexion</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-
-  <!-- Barre de recherche -->
-    <div class="collapse navbar-collapse justify-content-end navb ml-auto">
-      <form method="get" action="/">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="material-icons">&#xE8B6;</i></span>
-          </div>
-          <input type="text" name="s" class="form-control" placeholder="Recherche">
-        </div> 
-      </form>
-
-  <!-- Bouton de connexion -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" id="connect"> 
-            <button type="button" data-toggle="popover" class="btn-block btn btn-success">Connexion</button>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
 </nav>
 <!-- Fin de la barre de navigation -->
 
 <!-- Formulaire QuickConnect -->
 <div id="connectForm" class="d-none">
-  <form action="/" method="post">
-    <div class="form-group">
-      <input type="email" id="email" class="form-control input-md mt-1" placeholder="Email" required>
-      <input type="password" class="form-control input-md mt-1" placeholder="Mot de passe" autocomplete required>
-    </div>
-    <hr class="colorgraph">
-    <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-  </form>
+    <form action="/" method="post">
+        <div class="form-group">
+            <input type="email" id="email" class="form-control input-md mt-1" placeholder="Email" required>
+            <input type="password" class="form-control input-md mt-1" placeholder="Mot de passe" autocomplete required>
+        </div>
+        <hr class="colorgraph">
+        <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+    </form>
 </div>
 
 <!-- Carousel des promotions d'événements -->
 <div class="container" style="margin-top: 80px">
-  <div id="demo" class="carousel slide" data-ride="carousel">
+    <div id="demo" class="carousel slide" data-ride="carousel">
 
-<!-- Liens vers les promotions -->
-    <ul class="carousel-indicators">
-      <li data-target="#demo" data-slide-to="0" class="active"></li>
-      <li data-target="#demo" data-slide-to="1"></li>
-      <li data-target="#demo" data-slide-to="2"></li>
-    </ul>
+        <!-- Liens vers les promotions -->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
 
-<!-- Promotions -->
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <a target="_blank" href="//google.fr">
-          <img src="{% static "img/1.jpg" %}">
+        <!-- Promotions -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a target="_blank" href="//google.fr">
+                    <img src="{% static "img/1.jpg" %}">
+                </a>
+                <div class="carousel-caption">
+                    <h3>The FunCon</h3>
+                    <p>The event full of fun !</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <a target="_blank" href="//google.fr">
+                    <img src="{% static "img/2.jpg" %}">
+                </a>
+                <div class="carousel-caption">
+                    <h3>The ChristmasCon</h3>
+                    <p>Come meet the real Santa !</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <a target="_blank" href="//google.fr">
+                    <img src="{% static "img/3.jpg" %}">
+                </a>
+                <div class="carousel-caption">
+                    <h3>The JavaCon</h3>
+                    <p>The Java fans convention !</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boutons de navigation entre promotions -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
         </a>
-        <div class="carousel-caption">
-          <h3>The FunCon</h3>
-          <p>The event full of fun !</p>
-        </div>   
-      </div>
-      <div class="carousel-item">
-        <a target="_blank" href="//google.fr">
-          <img src="{% static "img/2.jpg" %}">
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
         </a>
-        <div class="carousel-caption">
-          <h3>The ChristmasCon</h3>
-          <p>Come meet the real Santa !</p>
-        </div>   
-      </div>
-      <div class="carousel-item">
-        <a target="_blank" href="//google.fr">
-          <img src="{% static "img/3.jpg" %}">
-        </a>
-        <div class="carousel-caption">
-          <h3>The JavaCon</h3>
-          <p>The Java fans convention !</p>
-        </div>   
-      </div>
     </div>
-
-<!-- Boutons de navigation entre promotions -->
-    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#demo" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </a>
-  </div>
 </div>
 <!-- Fin du carousel de promotions -->
 
 <!-- Calendrier -->
 <div class="mt-2 container">
-  <div class="row">
-    <div id="calendar" class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end"></div>
-    <span class="divider"></span>
-    <div class="col-12 col-md">
-      <h1>Événements d<span id="date">'aujourd'hui</span></h1>    
-      <div class="row">
-        <div class="col-6 col-lg-4">
-      <button type="button" class="btn-block btn btn-info">The FunCon</button>
-      <button type="button" class="btn-block btn btn-info">The ChristmasCon</button>
-      <button type="button" class="btn-block btn btn-info">The JavaCon</button>
+    <div class="row">
+        <div id="calendar" class="col-12 col-md-4 d-flex justify-content-center justify-content-md-end"></div>
+        <span class="divider"></span>
+        <div class="col-12 col-md">
+            <h1>Événements d<span id="date">'aujourd'hui</span></h1>
+            <div class="row">
+                <div class="col-6 col-lg-4">
+                    <button type="button" class="btn-block btn btn-info">The FunCon</button>
+                    <button type="button" class="btn-block btn btn-info">The ChristmasCon</button>
+                    <button type="button" class="btn-block btn btn-info">The JavaCon</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 </body>
