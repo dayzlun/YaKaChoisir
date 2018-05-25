@@ -123,10 +123,10 @@
                     <a class="nav-link" href="/">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Liste des événements</a>
+                    <a class="nav-link" href="/all_event.html">Liste des événements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Mes événements</a>
+                    <a class="nav-link" href="/create_event.html">Création d'événements</a>
                 </li>
             </ul>
         </div>
@@ -166,10 +166,5 @@
     </div>
 </div>
 <!-- Fin du formulaire de création d'événement -->
-
-
-{% for event in events %}
-    <h1>{{ event.description }}</h1>
-{% endfor %}
 </body>
 </html>

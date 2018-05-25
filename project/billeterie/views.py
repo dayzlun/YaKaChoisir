@@ -19,7 +19,6 @@ class ConnexionPageView(TemplateView):
 class CreateEventPageView(TemplateView):
     def get(self, request, **kwargs):
         form = EventForm()
-        events = Event.objects.all()
         args = {'form': form, 'events': events}
         return render(request, 'create_event.html', args)
 
