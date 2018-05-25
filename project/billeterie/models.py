@@ -23,12 +23,12 @@ class Event(models.Model):
     max_place_ext = models.IntegerField()
     price_student = models.IntegerField()
     price_extern = models.IntegerField()
-    display_available_places = models.BooleanField()
-    status = models.IntegerField()
-    premium = models.IntegerField()
-    nb_registered = models.IntegerField()
-    nb_registered_used = models.IntegerField()
-    nb_registered_inside = models.IntegerField()
+    display_available_places = models.BooleanField(default=False)
+    status = models.IntegerField(default=0)
+    premium = models.IntegerField(default=0)
+    nb_registered = models.IntegerField(default=0)
+    nb_registered_used = models.IntegerField(default=0)
+    nb_registered_inside = models.IntegerField(default=0)
 
 
 class Association(models.Model):

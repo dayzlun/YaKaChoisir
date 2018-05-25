@@ -16,14 +16,16 @@ class ConnexionPageView(TemplateView):
 
 
 class CreateEventPageVew(TemplateView):
-    def post(self, request, **kwargs):
-        form = EvenForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('/index.html')
-
     def get(self, request, **kwargs):
         form = EvenForm()
         return render(request, 'create_event.html', {'form': form})
+
+    def post(self, request, **kwargs):
+        form = EvenForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/index.html')
+        return HttpResponseRedirect('/create_event.html')
 
 
 class EventPageVew(TemplateView):
