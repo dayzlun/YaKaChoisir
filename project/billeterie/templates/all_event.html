@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     {% load static %}
     <!-- Titre d'onglet -->
@@ -157,19 +156,11 @@
 
 <!-- Formulaire de création d'événement -->
 <div class="container">
-    <div class="formulaire-event">
-        <form action="/create_event.html" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit"/>
-        </form>
-    </div>
+    {% for event in events %}
+        <h1>{{ event.description }}</h1>
+    {% endfor %}
 </div>
 <!-- Fin du formulaire de création d'événement -->
 
-
-{% for event in events %}
-    <h1>{{ event.description }}</h1>
-{% endfor %}
 </body>
 </html>

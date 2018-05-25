@@ -16,11 +16,10 @@ class ConnexionPageView(TemplateView):
         return render(request, 'connexion.html', context=None)
 
 
-class CreateEventPageVew(TemplateView):
+class CreateEventPageView(TemplateView):
     def get(self, request, **kwargs):
         form = EventForm()
         events = Event.objects.all()
-        print(events)
         args = {'form': form, 'events': events}
         return render(request, 'create_event.html', args)
 
@@ -32,6 +31,13 @@ class CreateEventPageVew(TemplateView):
         return HttpResponseRedirect('/create_event.html')
 
 
-class EventPageVew(TemplateView):
+class EventPageView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'event.html', context=None)
+
+
+class AllEventPageView(TemplateView):
+    def get(self, request, **kwargs):
+        events = Event.objects.all()
+        args = {'events': events}
+        return render(request, 'all_event.html', args)
