@@ -165,5 +165,9 @@
 </div>
 <!-- Fin du formulaire de création d'événement -->
 
+
+{% for event in events %}
+    <h1>{{ event.description }}</h1>
+{% endfor %}
 </body>
 </html>

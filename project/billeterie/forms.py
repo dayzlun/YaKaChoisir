@@ -1,13 +1,14 @@
 from django import forms
 from .models import Event
+import datetime
 
 
-class EvenForm(forms.ModelForm):
+class EventForm(forms.ModelForm):
     title = forms.CharField(label='Nom de l\'événement', max_length=64)
     description = forms.CharField(label='Description', max_length=64)
-    start_date = forms.DateField(label='Date de début')
-    end_date = forms.DateField(label='Date de fin')
-    end_inscrip_date = forms.DateField(label='Date de fin d\'inscription')
+    start_date = forms.DateField(label='Date de début', initial=datetime.date.today)
+    end_date = forms.DateField(label='Date de fin', initial=datetime.date.today)
+    end_inscrip_date = forms.DateField(label='Date de fin d\'inscription', initial=datetime.date.today)
     max_place_student = forms.IntegerField(label='Nombre de places maximales internes')
     max_place_ext = forms.IntegerField(label='Nombre de places maximales externes')
     price_student = forms.IntegerField(label='Prix internes')

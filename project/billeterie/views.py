@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .forms import EvenForm
+from .forms import EventForm
+from .models import Event
 from django.http import HttpResponseRedirect
 
 
@@ -17,11 +18,14 @@ class ConnexionPageView(TemplateView):
 
 class CreateEventPageVew(TemplateView):
     def get(self, request, **kwargs):
-        form = EvenForm()
-        return render(request, 'create_event.html', {'form': form})
+        form = EventForm()
+        events = Event.objects.all()
+        print(events)
+        args = {'form': form, 'events': events}
+        return render(request, 'create_event.html', args)
 
     def post(self, request, **kwargs):
-        form = EvenForm(request.POST)
+        form = EventForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/index.html')
