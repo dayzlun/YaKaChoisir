@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^$', views.HomePageView.as_view()),
     url(r'^connexion.html$', views.ConnexionPageView.as_view()),
     url(r'^create_event.html$', views.CreateEventPageVew.as_view()),
-    url(r'^event.html$', views.EventPageVew.as_view())
+    url(r'^event.html$', views.EventPageVew.as_view()),
+    url(r'^index.html$', views.HomePageView.as_view()),
 ]
