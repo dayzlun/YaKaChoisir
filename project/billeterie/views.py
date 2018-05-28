@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .forms import EventForm
 from .models import Event
@@ -12,7 +12,7 @@ def home(request):
 
 
 def connexion(request):
-    return render(request, 'connexion.html', context=None)
+    return render(request, 'connexion.html')
 
 
 class createEvent(TemplateView):
