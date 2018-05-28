@@ -148,9 +148,17 @@
             <!-- Bouton de connexion -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" id="connect">
-                        <button type="button" data-toggle="popover" class="btn-block btn btn-success">Connexion</button>
-                    </a>
+                    {% if user.is_authenticated %}
+                        <a href="/logout" class="nav-link" id="connect">
+                            <button type="button" class="btn-block btn btn-danger">Déconnexion
+                            </button>
+                        </a>
+                    {% else %}
+                        <a href="/connexion.html" class="nav-link" id="connect">
+                            <button type="button" class="btn-block btn btn-success">Connexion
+                            </button>
+                        </a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
