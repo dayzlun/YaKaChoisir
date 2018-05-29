@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^event.html$', event, name="event"),
     url(r'^index.html$', home, name="home"),
     url(r'^all_event.html$', allEvent, name="allEvent"),
+    url(r'^compte.html', compte, name="compte"),
 ]

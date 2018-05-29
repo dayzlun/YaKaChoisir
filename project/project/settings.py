@@ -136,4 +136,4 @@ SOCIAL_AUTH_EPITA_EXTRA_DATA = ['promo']
 SOCIAL_AUTH_EPITA_BETA = True
 
 LOGIN_URL = '/connexion.html'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/compte.html'
