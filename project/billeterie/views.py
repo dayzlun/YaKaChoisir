@@ -44,7 +44,7 @@ class createEvent(TemplateView):
 
 @login_required
 def event(request):
-    return render(request, 'event.html', context=None)
+    return render(request, 'event.html')
 
 
 @login_required

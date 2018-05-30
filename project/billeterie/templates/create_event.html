@@ -1,30 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     {% load static %}
+
     <!-- Titre d'onglet -->
-    <title>Création d'événement</title>
+    <title>Billetterie</title>
+
     <!-- Encodage -->
     <meta charset="utf-8">
+
+    <!-- Assure le bon rendering sur tous types d'appareils ainsi que le touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Icône d'onglet -->
     <link rel="icon" href="{% static "img/favicon.ico" %}">
+
     <!-- Icônes Material -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- Calendar CSS -->
-    <link id="bsdp-css" href="{% static "css/bootstrap-datepicker3.min.css" %}" rel="stylesheet">
+
     <!-- jQuery JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- Calendar JS -->
-    <script src="{% static "js/bootstrap-datepicker.min.js" %}"></script>
-    <script src="{% static "locales/bootstrap-datepicker.fr.min.js" %}" charset="UTF-8"></script>
-    <script src="{% static "locales/bootstrap-datepicker.fr-CH.min.js" %}" charset="UTF-8"></script>
+    <script>
+        $(function () {
+            /*
+            // Inclusion du formulaire QuickConnect dans le popover
+            $('#connect').popover({
+                placement: 'bottom',
+                html: true,
+                content: $('#connectForm').html()
+            });
+
+            // Fermeture du formulaire QuickConnect lors d'un clic en dehors du formulaire
+            $(document).on('click', function (e) {
+                $('[data-toggle=popover]').each(function () {
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0)
+                        $('#connect').popover('hide');
+                });
+            });*/
+
+            $("input[type='password'][data-eye]").each(function (i) {
+                var $this = $(this);
+
+                $this.wrap($("<div/>", {
+                    style: 'position:relative'
+                }));
+                $this.css({
+                    paddingRight: 60
+                });
+                $this.after($("<div/>", {
+                    html: 'Voir',
+                    class: 'btn btn-primary btn-sm',
+                    id: 'passeye-toggle-' + i,
+                    style: 'position:absolute;right:10px;top:50%;transform:translate(0,-50%);-webkit-transform:translate(0,-50%);-o-transform:translate(0,-50%);padding: 2px 7px;font-size:12px;cursor:pointer;'
+                }));
+                $this.after($("<input/>", {
+                    type: 'hidden',
+                    id: 'passeye-' + i
+                }));
+                $this.on("keyup paste", function () {
+                    $("#passeye-" + i).val($(this).val());
+                });
+                $("#passeye-toggle-" + i).on("click", function () {
+                    if ($this.hasClass("show")) {
+                        $this.attr('type', 'password');
+                        $this.removeClass("show");
+                        $(this).removeClass("btn-outline-primary");
+                    } else {
+                        $this.attr('type', 'text');
+                        $this.val($("#passeye-" + i).val());
+                        $this.addClass("show");
+                        $(this).addClass("btn-outline-primary");
+                    }
+                });
+            });
+        });
+    </script>
 
     <style>
 
@@ -74,36 +133,65 @@
             font-family: rregular;
         }
 
-        /* Bon dimensionnement des images de promotion des événéments */
-        .carousel-inner img {
-            width: 100%;
+        html, body {
             height: 100%;
         }
 
-        /* Diviseur vertical de colonnes */
-        .divider {
-            margin: 0 9px;
-            border-left: 1px solid #f2f2f2;
-            border-right: 1px solid #f2f2f2;
+        body {
+            background-color: #f7f9fb;
         }
 
-        /* Stylisation de la bande multicolore du formulaire QuickConnect */
-        .colorgraph {
-            height: 7px;
-            border-top: 0;
-            background: #c4e17f;
-            border-radius: 5px;
-            background-image: -webkit-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: -moz-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: -o-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: linear-gradient(to right, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
+        .style .card {
+            border-color: transparent;
+            box-shadow: 0 0 40px rgba(0, 0, 0, .05);
+        }
+
+        .style .card.fat {
+            padding: 10px;
+        }
+
+        .style .card .card-title {
+            margin-bottom: 30px;
+        }
+
+        .style .form-control {
+            border-width: 2.3px;
+        }
+
+        .style .form-group label {
+            width: 100%;
+        }
+
+        .style .btn.btn-block {
+            padding: 12px 10px;
+        }
+
+        .style .margin-top20 {
+            margin-top: 20px;
+        }
+
+        @media screen and (max-width: 425px) {
+            .style .card-wrapper {
+                width: 90%;
+                margin: 0 auto;
+            }
+        }
+
+        @media screen and (max-width: 320px) {
+            .style .card.fat {
+                padding: 0;
+            }
+
+            .style .card.fat .card-body {
+                padding: 15px;
+            }
         }
     </style>
 </head>
-
 <body>
+
 <!-- Barre de navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <!-- Logo EPITA et titre de page -->
         <a class="navbar-brand" href="/">
@@ -166,16 +254,82 @@
 </nav>
 <!-- Fin de la barre de navigation -->
 
-<!-- Formulaire de création d'événement -->
-<div class="container">
-    <div class="formulaire-event">
-        <form action="/create_event.html" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit"/>
-        </form>
+<div class="style container h-100">
+    <div class="row justify-content-md-center h-100">
+        <div class="card-wrapper d-flex justify-content-center align-items-center h100">
+            <div class="card fat" id="vertical">
+                <div class="card-body">
+                    <h4 class="card-title"><b>Création d'un évènement</b></h4>
+                    <form action="/create_event.html" method="POST">
+                        {% csrf_token %}
+                        <form>
+                            <div class="form-group">
+                                <label for="title">Nom de l'évènement</label>
+                                <input type="text" class="form-control" id="title" name="title" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea type="text" class="form-control" id="description"
+                                          name="description"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="start_date">Date de début</label>
+                                    <input type="text" class="form-control" id="start_date" name="start_date">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="end_date">Date de fin</label>
+                                    <input type="text" class="form-control" id="end_date"
+                                           name="end_date">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="end_inscrip_date">Date de fin d'inscription</label>
+                                    <input type="text" class="form-control" id="end_inscrip_date"
+                                           name="end_inscrip_date">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="max_place_student">Maximum d'internes</label>
+                                    <input type="number" class="form-control" id="max_place_student"
+                                           name="max_place_student" placeholder="0">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="max_place_ext">Maximum d'externes</label>
+                                    <input type="number" class="form-control" id="max_place_ext"
+                                           name="max_place_ext" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="price_student">Prix internes</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="price_student"
+                                               name="price_student" placeholder="0">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="price_extern">Prix internes</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="price_extern"
+                                               name="price_extern" placeholder="0">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Créer</button>
+                        </form>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- Fin du formulaire de création d'événement -->
+
 </body>
 </html>

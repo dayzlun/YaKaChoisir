@@ -171,18 +171,18 @@
 
 <!-- Formulaire de création d'événement -->
 <div class="container">
-<div class="event-all">
+    <div class="event-all">
         {% for event in events %}
-        <h1>Nom de l'événement : {{ event.title }}</h1>
-        <h3>Description : {{ event.description }}</h3>
-        <h3>Date de début : {{ event.start_date }}</h3>
-        <h3>Date de fin : {{ event.end_date }}</h3>
-        <h3>Date de fin d'inscription : {{ event.end_inscrip_date }}</h3>
-        <h3>Places max externes : {{ event.max_place_ext }}</h3>
-        <h3>Places max internes : {{ event.max_place_student }}</h3>
-        <h1>----------------------------------------------------</h1>
-    {% endfor %}
-</div>
+            <h1>Nom de l'événement : {{ event.title }}</h1>
+            <h3>Description : {{ event.description }}</h3>
+            <h3>Date de début : {{ event.start_date }}</h3>
+            <h3>Date de fin : {{ event.end_date }}</h3>
+            <h3>Date de fin d'inscription : {{ event.end_inscrip_date }}</h3>
+            <h3>Places max externes : {{ event.max_place_ext }}</h3>
+            <h3>Places max internes : {{ event.max_place_student }}</h3>
+            <h1>----------------------------------------------------</h1>
+        {% endfor %}
+    </div>
 
 </div>
 <!-- Fin du formulaire de création d'événement -->
