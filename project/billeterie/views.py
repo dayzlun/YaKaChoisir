@@ -30,9 +30,7 @@ def connexion(request):
 
 class createEvent(TemplateView):
     def get(self, request, **kwargs):
-        form = EventForm()
-        args = {'form': form}
-        return render(request, 'create_event.html', args)
+        return render(request, 'create_event.html')
 
     def post(self, request):
         form = EventForm(request.POST)

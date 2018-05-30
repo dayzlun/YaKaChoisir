@@ -29,24 +29,17 @@
 
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Calendar CSS -->
+    <link id="bsdp-css" href="{% static "css/bootstrap-datepicker3.min.css" %}" rel="stylesheet">
+
+    <!-- Calendar JS -->
+    <script src="{% static "js/bootstrap-datepicker.min.js" %}"></script>
+    <script src="{% static "locales/bootstrap-datepicker.fr.min.js" %}" charset="UTF-8"></script>
+    <script src="{% static "locales/bootstrap-datepicker.fr-CH.min.js" %}" charset="UTF-8"></script>
+
     <script>
         $(function () {
-            /*
-            // Inclusion du formulaire QuickConnect dans le popover
-            $('#connect').popover({
-                placement: 'bottom',
-                html: true,
-                content: $('#connectForm').html()
-            });
-
-            // Fermeture du formulaire QuickConnect lors d'un clic en dehors du formulaire
-            $(document).on('click', function (e) {
-                $('[data-toggle=popover]').each(function () {
-                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0)
-                        $('#connect').popover('hide');
-                });
-            });*/
-
             $("input[type='password'][data-eye]").each(function (i) {
                 var $this = $(this);
 
@@ -81,6 +74,13 @@
                         $(this).addClass("btn-outline-primary");
                     }
                 });
+            });
+            $('.picker').datepicker({
+                format: "yyyy-mm-dd",
+                maxViewMode: 1,
+                todayBtn: "linked",
+                language: "fr",
+                todayHighlight: true
             });
         });
     </script>
@@ -160,14 +160,6 @@
 
         .style .form-group label {
             width: 100%;
-        }
-
-        .style .btn.btn-block {
-            padding: 12px 10px;
-        }
-
-        .style .margin-top20 {
-            margin-top: 20px;
         }
 
         @media screen and (max-width: 425px) {
@@ -265,34 +257,34 @@
                         <form>
                             <div class="form-group">
                                 <label for="title">Nom de l'évènement</label>
-                                <input type="text" class="form-control" id="title" name="title" autofocus>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Weekend d'intégration" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea type="text" class="form-control" id="description"
-                                          name="description"></textarea>
+                                          name="description" placeholder="Le BDE organise un grand week-end d'intégration pour réunir l'ensemble des Epitéens de 1ère année et créer une vraie cohésion au sein de la promotion."></textarea>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="start_date">Date de début</label>
-                                    <input type="text" class="form-control" id="start_date" name="start_date">
+                                    <input type="text" class="form-control picker" id="start_date" name="start_date" placeholder="2017-09-28">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="end_date">Date de fin</label>
-                                    <input type="text" class="form-control" id="end_date"
-                                           name="end_date">
+                                    <input type="text" class="form-control picker" id="end_date"
+                                           name="end_date" placeholder="2017-10-01">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="end_inscrip_date">Date de fin d'inscription</label>
-                                    <input type="text" class="form-control" id="end_inscrip_date"
-                                           name="end_inscrip_date">
+                                    <input type="text" class="form-control picker" id="end_inscrip_date"
+                                           name="end_inscrip_date" placeholder="2017-09-21">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="max_place_student">Maximum d'internes</label>
                                     <input type="number" class="form-control" id="max_place_student"
-                                           name="max_place_student" placeholder="0">
+                                           name="max_place_student" placeholder="200">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="max_place_ext">Maximum d'externes</label>
@@ -305,14 +297,14 @@
                                     <label for="price_student">Prix internes</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="price_student"
-                                               name="price_student" placeholder="0">
+                                               name="price_student" placeholder="30">
                                         <div class="input-group-append">
                                             <span class="input-group-text">€</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="price_extern">Prix internes</label>
+                                    <label for="price_extern">Prix externes</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="price_extern"
                                                name="price_extern" placeholder="0">
@@ -333,3 +325,5 @@
 
 </body>
 </html>
+
+<form>{{ form }}</form>
