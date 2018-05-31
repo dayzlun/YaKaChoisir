@@ -36,8 +36,8 @@ class createEvent(TemplateView):
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/index.html')
-        return HttpResponseRedirect('/create_event.html')
+            return render(request, 'index.html')
+        return render(request, 'create_event.html', {'form': form})
 
 
 @login_required
