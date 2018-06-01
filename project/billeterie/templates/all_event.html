@@ -3,7 +3,11 @@
 <head>
     {% load static %}
     <!-- Titre d'onglet -->
-    <title>Création d'événement</title>
+    {% if filter %}
+    <title>Recherche d'évènement</title>
+    {% else %}
+    <title>Liste des évènements</title>
+    {% endif %}
     <!-- Encodage -->
     <meta charset="utf-8">
     <!-- Icône d'onglet -->

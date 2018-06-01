@@ -4,7 +4,11 @@
     {% load static %}
 
     <!-- Titre d'onglet -->
-    <title>Billetterie</title>
+    {% if event %}
+    <title>{{ event.title }}</title>
+    {% else %}
+    <title>Introuvable</title>
+    {% endif %}
 
     <!-- Encodage -->
     <meta charset="utf-8">
