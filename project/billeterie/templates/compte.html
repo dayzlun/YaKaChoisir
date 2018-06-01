@@ -162,18 +162,6 @@
             box-shadow: 0 0 40px rgba(0, 0, 0, .05);
         }
 
-        .my-login-page .card.fat {
-            padding: 10px;
-        }
-
-        .my-login-page .card .card-title {
-            margin-bottom: 30px;
-        }
-
-        .my-login-page .form-control {
-            border-width: 2.3px;
-        }
-
         .my-login-page .form-group label {
             width: 100%;
         }
@@ -182,41 +170,11 @@
             padding: 12px 10px;
         }
 
-        .my-login-page .margin-top20 {
-            margin-top: 20px;
-        }
-
-        .my-login-page .no-margin {
-            margin: 0;
-        }
-
         @media screen and (max-width: 425px) {
             .my-login-page .card-wrapper {
                 width: 90%;
                 margin: 0 auto;
             }
-        }
-
-        @media screen and (max-width: 320px) {
-            .my-login-page .card.fat {
-                padding: 0;
-            }
-
-            .my-login-page .card.fat .card-body {
-                padding: 15px;
-            }
-        }
-
-        /* Stylisation de la bande multicolore du formulaire QuickConnect */
-        .colorgraph {
-            height: 7px;
-            border-top: 0;
-            background: #c4e17f;
-            border-radius: 5px;
-            background-image: -webkit-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: -moz-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: -o-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: linear-gradient(to right, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
         }
     </style>
 </head>
@@ -294,7 +252,9 @@
                 <div class="card-body">
                     <p class="card-text">Login: {{ user.username }}</p>
                     <p class="card-text">Promo: {{ extra_data.promo }}</p>
-                    <button type="button" class="btn-block btn btn-success" onclick="location.href = '/logout'">Déconnexion
+                    <p class="card-text">Email: {{ user.email }}</p>
+                    <button type="button" class="btn-block btn btn-success" onclick="location.href = '/logout'">
+                        Déconnexion
                     </button>
                 </div>
             </div>
