@@ -242,7 +242,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                        <div class="btn-group nav-link" role="group" aria-label="Basic example">
+                        <div class="btn-group nav-link" role="group">
                             <button type="button" class="btn btn-info" onclick="location.href = '/compte.html'">Mon
                                 compte
                             </button>
@@ -268,7 +268,7 @@
             <div class="card fat" id="vertical">
                 <div class="card-body">
                     <h4 class="card-title"><b>Création d'un évènement</b></h4>
-                    <form class="needs-validation" novalidate action="/create_event.html" method="POST">
+                    <form class="needs-validation" action="/create_event.html" method="POST" novalidate>
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="title">Nom de l'évènement</label>
