@@ -29,15 +29,22 @@ def connexion(request):
 
 
 class createEvent(TemplateView):
-    def get(self, request, **kwargs):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('connexion.html')
         return render(request, 'create_event.html')
 
     def post(self, request):
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'index.html')
-        return render(request, 'create_event.html', {'form': form})
+            return HttpResponseRedirect('all_event.html')
+        else:
+            context = {
+                'form': form,
+                'error': ''
+            }
+            return render(request, 'create_event.html', context)
 
 
 @login_required
