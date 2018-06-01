@@ -173,16 +173,22 @@
 <div class="container">
     <div class="row event-all justify-content-center">
         <div class="list-group col-8">
-            {% for event in events %}
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5>{{ event.title }}</h5>
-                        <small>{{ event.price_student }}€</small>
-                    </div>
-                    <p>{{ event.description }}</p>
-                    <small>{{ event.start_date }}</small>
-                </a>
-            {% endfor %}
+            {% if not events.count %}
+                <div class="alert alert-danger">
+                    Aucun évènement ! <a href="create_event.html" class="alert-link">Créez</a>-en un !
+                </div>
+            {% else %}
+                {% for event in events %}
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5>{{ event.title }}</h5>
+                            <small>{{ event.price_student }}€</small>
+                        </div>
+                        <p>{{ event.description }}</p>
+                        <small>{{ event.start_date }}</small>
+                    </a>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
