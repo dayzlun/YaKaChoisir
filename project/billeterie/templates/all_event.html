@@ -117,12 +117,12 @@
 
         <!-- Barre de recherche -->
         <div class="collapse navbar-collapse justify-content-end navb ml-auto">
-            <form method="get" action="/">
+            <form method="get" action="/all_event.html">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="material-icons">&#xE8B6;</i></span>
                     </div>
-                    <input type="text" name="s" class="form-control" placeholder="Recherche">
+                    <input type="text" name="filter" class="form-control" placeholder="Recherche" value="{{ filter }}">
                 </div>
             </form>
 
@@ -154,25 +154,52 @@
 <div class="container">
     <div class="row event-all justify-content-center">
         <div class="list-group col-8">
-            {% if not events.count %}
-                <div class="alert alert-danger">
-                    Aucun évènement ! <a href="create_event.html" class="alert-link">Créez</a>-en un !
-                </div>
+            {% if not filter %}
+                {% if not events.count %}
+                    <div class="alert alert-danger">
+                        Aucun évènement ! <a href="create_event.html" class="alert-link">Créez</a>-en un !
+                    </div>
+                {% else %}
+                    {% for event in events %}
+                        <a href="/event.html?name={{ event.title }}"
+                           class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5>{{ event.title }}</h5>
+                                <small>{{ event.price_student }}€</small>
+                            </div>
+                            <p>{{ event.description }}</p>
+                            <small>{{ event.start_date }}</small>
+                        </a>
+                    {% endfor %}
+                {% endif %}
             {% else %}
-                {% for event in events %}
-                    <a href="/event.html?name={{ event.title }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5>{{ event.title }}</h5>
-                            <small>{{ event.price_student }}€</small>
-                        </div>
-                        <p>{{ event.description }}</p>
-                        <small>{{ event.start_date }}</small>
-                    </a>
-                {% endfor %}
+                <div>
+                    <h5>
+                        Résultats de la recherche: <i>{{ filter }}</i>
+                    </h5>
+                </div>
+                {% if not events.count %}
+                    <div class="alert alert-danger">
+                        Aucun évènement correspondant à la recherche ! Jetez un coup d'oeil à la <a
+                            href="all_event.html" class="alert-link">liste</a>
+                        des évènements !
+                    </div>
+                {% else %}
+                    {% for event in events %}
+                        <a href="/event.html?name={{ event.title }}"
+                           class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5>{{ event.title }}</h5>
+                                <small>{{ event.price_student }}€</small>
+                            </div>
+                            <p>{{ event.description }}</p>
+                            <small>{{ event.start_date }}</small>
+                        </a>
+                    {% endfor %}
+                {% endif %}
             {% endif %}
         </div>
     </div>
-
 </div>
 <!-- Fin du formulaire de création d'événement -->
 

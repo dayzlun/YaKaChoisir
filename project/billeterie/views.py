@@ -62,8 +62,10 @@ def event(request):
 
 @login_required
 def allEvent(request):
-    events = Event.objects.all()
-    context = {
-        'events': events,
-    }
-    return render(request, 'all_event.html', context)
+    filter = request.GET.get('filter')
+    if filter is not None:
+        events = Event.objects.filter(title__contains=filter)
+        return render(request, 'all_event.html', {'events': events, 'filter': filter})
+    else:
+        events = Event.objects.all()
+        return render(request, 'all_event.html', {'events': events})
