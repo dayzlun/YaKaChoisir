@@ -82,6 +82,22 @@
                 language: "fr",
                 todayHighlight: true
             });
+            // form validation
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
         });
     </script>
 
@@ -252,81 +268,79 @@
             <div class="card fat" id="vertical">
                 <div class="card-body">
                     <h4 class="card-title"><b>Création d'un évènement</b></h4>
-                    <form action="/create_event.html" method="POST">
+                    <form class="needs-validation" novalidate action="/create_event.html" method="POST">
                         {% csrf_token %}
-                        <form>
-                            <div class="form-group">
-                                <label for="title">Nom de l'évènement</label>
-                                <input type="text" class="form-control" id="title" name="title"
-                                       placeholder="Weekend d'intégration" value="{{ form.title.value }}" required
-                                       autofocus>
+                        <div class="form-group">
+                            <label for="title">Nom de l'évènement</label>
+                            <input type="text" class="form-control" id="title" name="title"
+                                   placeholder="Weekend d'intégration" value="{{ form.title.value }}" required
+                                   autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="text" class="form-control" id="description"
+                                      name="description"
+                                      placeholder="Le BDE organise un grand week-end d'intégration pour réunir l'ensemble des Epitéens de 1ère année et créer une vraie cohésion au sein de la promotion."
+                                      required>{{ form.description.value }}</textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="start_date">Date de début</label>
+                                <input type="text" class="form-control picker" id="start_date" name="start_date"
+                                       placeholder="2017-09-28" value="{{ form.start_date.value }}" required>
                             </div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea type="text" class="form-control" id="description"
-                                          name="description"
-                                          placeholder="Le BDE organise un grand week-end d'intégration pour réunir l'ensemble des Epitéens de 1ère année et créer une vraie cohésion au sein de la promotion."
-                                          required>{{ form.description.value }}</textarea>
+                            <div class="form-group col-md-4">
+                                <label for="end_date">Date de fin</label>
+                                <input type="text" class="form-control picker" id="end_date"
+                                       name="end_date" placeholder="2017-10-01" value="{{ form.end_date.value }}"
+                                       required>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="start_date">Date de début</label>
-                                    <input type="text" class="form-control picker" id="start_date" name="start_date"
-                                           placeholder="2017-09-28" value="{{ form.start_date.value }}" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="end_date">Date de fin</label>
-                                    <input type="text" class="form-control picker" id="end_date"
-                                           name="end_date" placeholder="2017-10-01" value="{{ form.end_date.value }}"
-                                           required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="end_inscrip_date">Date de fin d'inscription</label>
-                                    <input type="text" class="form-control picker" id="end_inscrip_date"
-                                           name="end_inscrip_date" placeholder="2017-09-21"
-                                           value="{{ form.end_inscrip_date.value }}" required>
-                                </div>
+                            <div class="form-group col-md-4">
+                                <label for="end_inscrip_date">Date de fin d'inscription</label>
+                                <input type="text" class="form-control picker" id="end_inscrip_date"
+                                       name="end_inscrip_date" placeholder="2017-09-21"
+                                       value="{{ form.end_inscrip_date.value }}" required>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="max_place_student">Maximum d'internes</label>
-                                    <input type="number" class="form-control" id="max_place_student"
-                                           name="max_place_student" placeholder="200"
-                                           value="{{ form.max_place_student.value }}" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="max_place_ext">Maximum d'externes</label>
-                                    <input type="number" class="form-control" id="max_place_ext"
-                                           name="max_place_ext" placeholder="0" value="{{ form.max_place_ext.value }}"
-                                           required>
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="max_place_student">Maximum d'internes</label>
+                                <input type="number" class="form-control" id="max_place_student"
+                                       name="max_place_student" placeholder="200"
+                                       value="{{ form.max_place_student.value }}" required>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="price_student">Prix internes</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="price_student"
-                                               name="price_student" placeholder="30"
-                                               value="{{ form.price_student.value }}" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">€</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="price_extern">Prix externes</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" id="price_extern"
-                                               name="price_extern" placeholder="0" value="{{ form.price_extern.value }}"
-                                               required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">€</span>
-                                        </div>
+                            <div class="form-group col-md-6">
+                                <label for="max_place_ext">Maximum d'externes</label>
+                                <input type="number" class="form-control" id="max_place_ext"
+                                       name="max_place_ext" placeholder="0" value="{{ form.max_place_ext.value }}"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="price_student">Prix internes</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="price_student"
+                                           name="price_student" placeholder="30"
+                                           value="{{ form.price_student.value }}" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">€</span>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Créer l'évènement</button>
-                        </form>
+                            <div class="form-group col-md-6">
+                                <label for="price_extern">Prix externes</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="price_extern"
+                                           name="price_extern" placeholder="0" value="{{ form.price_extern.value }}"
+                                           required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">€</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Créer l'évènement</button>
                     </form>
                 </div>
             </div>
