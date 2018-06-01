@@ -49,6 +49,14 @@ class createEvent(TemplateView):
 
 @login_required
 def event(request):
+    name = request.GET.get('name')
+    if name is not None:
+        try:
+            ev = Event.objects.get(title=name)
+        except Event.DoesNotExist:
+            return render(request, 'event.html')
+        if ev is not None:
+            return render(request, 'event.html', {'event': ev})
     return render(request, 'event.html')
 
 

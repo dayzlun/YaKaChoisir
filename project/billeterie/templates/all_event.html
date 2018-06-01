@@ -58,7 +58,7 @@
             src: url({% static "font/raleway-medium.ttf" %});
         }
 
-        /* Rend les éléments non-sélectionnables */
+        /* Rend les éléments non-sélectionnables
         body {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -66,7 +66,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-        }
+        }*/
 
         /* Police utilisée */
         body, form {
@@ -81,25 +81,6 @@
 
         .event-all {
             padding-top: 75px;
-        }
-
-        /* Diviseur vertical de colonnes */
-        .divider {
-            margin: 0 9px;
-            border-left: 1px solid #f2f2f2;
-            border-right: 1px solid #f2f2f2;
-        }
-
-        /* Stylisation de la bande multicolore du formulaire QuickConnect */
-        .colorgraph {
-            height: 7px;
-            border-top: 0;
-            background: #c4e17f;
-            border-radius: 5px;
-            background-image: -webkit-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: -moz-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: -o-linear-gradient(left, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
-            background-image: linear-gradient(to right, #0d2436, #0d2436 12.5%, #00435f 12.5%, #00435f 25%, #41b2e6 25%, #41b2e6 37.5%, #4fc1e5 37.5%, #4fc1e5 50%, #9dc8ec 50%, #9dc8ec 62.5%, #fab810 62.5%, #fab810 75%, #ec6865 75%, #ec6865 87.5%, #cd1619 87.5%, #cd1619);
         }
     </style>
 </head>
@@ -179,7 +160,7 @@
                 </div>
             {% else %}
                 {% for event in events %}
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <a href="/event.html?name={{ event.title }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5>{{ event.title }}</h5>
                             <small>{{ event.price_student }}€</small>
