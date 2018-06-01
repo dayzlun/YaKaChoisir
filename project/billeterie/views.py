@@ -64,7 +64,7 @@ def event(request):
 def allEvent(request):
     filter = request.GET.get('filter')
     if filter is not None:
-        events = Event.objects.filter(title__contains=filter)
+        events = Event.objects.filter(title__contains=filter) | Event.objects.filter(description__contains=filter)
         return render(request, 'all_event.html', {'events': events, 'filter': filter})
     else:
         events = Event.objects.all()
