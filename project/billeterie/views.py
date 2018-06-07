@@ -74,7 +74,7 @@ def allEvent(request):
     filter = request.GET.get('filter')
     if filter is not None:
         events = Event.objects.filter(title__contains=filter) | Event.objects.filter(description__contains=filter)
-        return render(request, 'all_event.html', {'events': events, 'filter': filter})
+        return render(request, 'all_event.html', {'events': events.order_by("start_date"), 'filter': filter})
     else:
-        events = Event.objects.all()
+        events = Event.objects.all().order_by("start_date")
         return render(request, 'all_event.html', {'events': events})
