@@ -35,7 +35,10 @@ class createEvent(TemplateView):
         return render(request, 'create_event.html')
 
     def post(self, request):
-        form = EventForm(request.POST)
+        copy = request.POST.copy()
+        copy['display_available_places'] = 'display_available_places' in request.POST
+        copy['premium'] = 'premium' in request.POST
+        form = EventForm(copy)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('all_event.html')
