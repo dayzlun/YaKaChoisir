@@ -51,8 +51,11 @@ class EventForm(forms.ModelForm):
     ), label='Prix externes')
     display_available_places = forms.NullBooleanField()
     premium = forms.NullBooleanField()
+    nb_places_student = forms.IntegerField()
+    nb_places_extern = forms.IntegerField()
 
     class Meta:
         model = Event
         fields = ['title', 'description', 'start_date', 'end_date', 'end_inscrip_date', 'max_place_student',
-                  'max_place_ext', 'price_student', 'price_extern', 'display_available_places', 'premium']
+                  'max_place_ext', 'price_student', 'price_extern', 'display_available_places', 'premium',
+                  'nb_places_student', 'nb_places_extern']

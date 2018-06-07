@@ -25,10 +25,10 @@ class Event(models.Model):
     price_extern = models.IntegerField()
     display_available_places = models.NullBooleanField(null=True, blank=True)
     premium = models.NullBooleanField(null=True, blank=True)
+    nb_places_student = models.IntegerField(null=True)
+    nb_places_extern = models.IntegerField(null=True)
     status = models.IntegerField(default=0)
-    nb_registered = models.IntegerField(default=0)
-    nb_registered_used = models.IntegerField(default=0)
-    nb_registered_inside = models.IntegerField(default=0)
+    nb_inside = models.IntegerField(default=0)
 
 
 class Association(models.Model):

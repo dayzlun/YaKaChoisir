@@ -5,9 +5,9 @@
 
     <!-- Titre d'onglet -->
     {% if event %}
-    <title>{{ event.title }}</title>
+        <title>{{ event.title }}</title>
     {% else %}
-    <title>Introuvable</title>
+        <title>Introuvable</title>
     {% endif %}
 
     <!-- Encodage -->
@@ -312,50 +312,15 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="max_place_student">Maximum d'internes</label>
-                                <input type="number" class="form-control" id="max_place_student"
-                                       name="max_place_student" value="{{ event.max_place_student }}" disabled>
+                                <label for="max_place_student">Places restantes (internes)</label>
+                                <input type="text" class="form-control" id="max_place_student"
+                                       value="{% if event.display_available_places %}{{ event.nb_places_student }}{% else %}Not visible{% endif %}"
+                                       disabled>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="max_place_ext">Maximum d'externes</label>
-                                <input type="number" class="form-control" id="max_place_ext"
-                                       name="max_place_ext" value="{{ event.max_place_ext }}" disabled>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="price_student">Prix internes</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="price_student"
-                                           name="price_student" value="{{ event.price_student }}" disabled>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">€</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="price_extern">Prix externes</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="price_extern"
-                                           name="price_extern" value="{{ event.price_extern }}" disabled>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">€</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <div class="custom-control custom-checkbox">
-                                    <input name="display_available_places" type="checkbox" class="custom-control-input" id="customCheck1" disabled {% if event.display_available_places %} checked {% endif %}>
-                                    <label class="custom-control-label" for="customCheck1" >Afficher les places restantes</label>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <div class="custom-control custom-checkbox">
-                                    <input name="premium" type="checkbox" class="custom-control-input" id="customCheck2" disabled {% if event.premium %} checked {% endif %}>
-                                    <label class="custom-control-label" for="customCheck2">Premium</label>
-                                </div>
+                                <label for="max_place_ext">Places restantes (externes)</label>
+                                <input type="text" class="form-control" id="max_place_ext"
+                                       value="{% if event.display_available_places %}{{ event.nb_places_extern }}{% else %}Not visible{% endif %}" disabled>
                             </div>
                         </div>
                     </div>

@@ -44,6 +44,8 @@ class createEvent(TemplateView):
         copy = request.POST.copy()
         copy['display_available_places'] = 'display_available_places' in request.POST
         copy['premium'] = 'premium' in request.POST
+        copy['nb_places_extern'] = copy['max_place_ext']
+        copy['nb_places_student'] = copy['max_place_student']
         form = EventForm(copy)
         if form.is_valid():
             form.save()
