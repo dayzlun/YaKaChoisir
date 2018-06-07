@@ -130,6 +130,47 @@
                 });
             });*/
 
+
+            function get_events(e) {
+                $.ajax({
+                    url: '/ajax/get_events/',
+                    data: {
+                        'date': e.length == 10 ? e : e.format('yyyy-mm-dd')
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        all = data['events'];
+                        $("#list").empty();
+                        for (var i = 0;
+                             i < all.length;
+                             i++
+                        ) {
+                            var event = all[i]['title'];
+                            var item = "<a class='list-group-item list-group-item-action' href='event.html?name=" + event + "'>" + event + "</a>";
+                            $("#list").append(item);
+                        }
+                    }
+                });
+                var now = new Date();
+                now.setHours(0, 0, 0, 0);
+                if (+e.date !== +now && e.length != 10)
+                    $('#date').html(e.format('u dd/mm'));
+                else
+                    $('#date').html("'aujourd'hui");
+            }
+
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+
+            var yyyy = today.getFullYear();
+            if (dd < 10)
+                dd = '0' + dd;
+            if (mm < 10)
+                mm = '0' + mm;
+            var today = yyyy + '-' + mm + '-' + dd;
+            get_events(today);
+
             // Initialisation du calendrier
             $('#calendar').datepicker({
                 weekStart: 1,
@@ -140,31 +181,7 @@
             })
                 .datepicker('setDate', Date())
                 .on('changeDate', function (e) {
-                    $.ajax({
-                        url: '/ajax/get_events/',
-                        data: {
-                            'date': e.format('yyyy-mm-dd')
-                        },
-                        dataType: 'json',
-                        success: function (data) {
-                            all = data['events'];
-                            $("#list").empty();
-                            for (var i = 0;
-                                 i < all.length;
-                                 i++
-                            ) {
-                                var event = all[i]['title'];
-                                var item = "<a class='list-group-item list-group-item-action' href='event.html?name=" + event + "'>" + event + "</a>";
-                                $("#list").append(item);
-                            }
-                        }
-                    });
-                    var now = new Date();
-                    now.setHours(0, 0, 0, 0);
-                    if (+e.date !== +now)
-                        $('#date').html(e.format('u dd/mm'));
-                    else
-                        $('#date').html("'aujourd'hui");
+                    get_events(e);
                 });
         })
 
