@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -10,6 +10,12 @@ from .models import Event
 # Create your views here.
 def home(request):
     return render(request, 'index.html')
+
+
+def getEvents(request):
+    date = request.GET.get('date', None)
+    queryset = Event.objects.filter(start_date=date).values('title')
+    return JsonResponse({"events": list(queryset)})
 
 
 @login_required

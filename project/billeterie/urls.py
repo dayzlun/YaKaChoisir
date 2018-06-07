@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^index.html$', home, name="home"),
     url(r'^all_event.html$', allEvent, name="allEvent"),
     url(r'^compte.html$', compte, name="compte"),
+    url(r'^ajax/get_events/$', getEvents, name="getEvents"),
 ]

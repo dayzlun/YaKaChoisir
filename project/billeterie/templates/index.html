@@ -140,6 +140,25 @@
             })
                 .datepicker('setDate', Date())
                 .on('changeDate', function (e) {
+                    $.ajax({
+                        url: '/ajax/get_events/',
+                        data: {
+                            'date': e.format('yyyy-mm-dd')
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            all = data['events'];
+                            $("#list").empty();
+                            for (var i = 0;
+                                 i < all.length;
+                                 i++
+                            ) {
+                                var event = all[i]['title'];
+                                var item = "<a class='list-group-item list-group-item-action' href='event.html?name=" + event + "'>" + event + "</a>";
+                                $("#list").append(item);
+                            }
+                        }
+                    });
                     var now = new Date();
                     now.setHours(0, 0, 0, 0);
                     if (+e.date !== +now)
@@ -291,13 +310,8 @@
         <span class="divider"></span>
         <div class="col-12 col-md">
             <h1>Événements d<span id="date">'aujourd'hui</span></h1>
-            <div class="row">
-                <div class="col-6 col-lg-4">
-                    <button type="button" class="btn-block btn btn-info">The FunCon</button>
-                    <button type="button" class="btn-block btn btn-info">The ChristmasCon</button>
-                    <button type="button" class="btn-block btn btn-info">The JavaCon</button>
-                </div>
-            </div>
+            <ul id="list" class="list-group">
+            </ul>
         </div>
     </div>
 </div>
