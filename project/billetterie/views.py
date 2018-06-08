@@ -32,6 +32,10 @@ def compte(request):
     return render(request, 'compte.html', context)
 
 
+def inscription(request):
+    return render(request, 'inscription.html')
+
+
 def connexion(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('compte.html')

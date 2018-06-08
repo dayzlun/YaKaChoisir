@@ -161,49 +161,19 @@
             background-color: #f7f9fb;
         }
 
-        .style .card {
-            border-color: transparent;
-            box-shadow: 0 0 40px rgba(0, 0, 0, .05);
-        }
-
-        .style .card.fat {
-            padding: 10px;
-        }
-
-        .style .card .card-title {
-            margin-bottom: 30px;
-        }
-
-        .style .form-control {
-            border-width: 2.3px;
-        }
-
         .style .form-group label {
             width: 100%;
         }
 
-        @media screen and (max-width: 425px) {
-            .style .card-wrapper {
-                width: 90%;
-                margin: 0 auto;
-            }
-        }
-
-        @media screen and (max-width: 320px) {
-            .style .card.fat {
-                padding: 0;
-            }
-
-            .style .card.fat .card-body {
-                padding: 15px;
-            }
+        .event-all {
+            padding-top: 75px;
         }
     </style>
 </head>
 <body>
 
 <!-- Barre de navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <!-- Logo EPITA et titre de page -->
         <a class="navbar-brand" href="/">
@@ -266,75 +236,17 @@
 </nav>
 <!-- Fin de la barre de navigation -->
 
-{% if not event %}
-    <div class="style container h-100">
-        <div class="row justify-content-md-center h-100">
-            <div class="card-wrapper d-flex justify-content-center align-items-center h100">
-                <div class="alert alert-danger">
-                    Cet évènement n'existe pas ! Jetez un coup d'oeil à la <a href="all_event.html" class="alert-link">liste</a>
-                    des évènements !
-                </div>
+<!-- Formulaire de création d'événement -->
+<div class="container">
+    <div class="row event-all justify-content-center">
+        <div class="col-8">
+            <div class="alert alert-success">
+                Vous allez être redirigé vers PayPal !
             </div>
         </div>
     </div>
-{% else %}
-    <div class="style container h-100">
-        <div class="row justify-content-md-center h-100">
-            <div class="card-wrapper d-flex justify-content-center align-items-center h100">
-                <div class="card fat" id="vertical">
-                    <div class="card-body">
-                        <form action="/inscription.html" method="POST">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="title">Nom de l'évènement</label>
-                                <input type="text" class="form-control" id="title" name="title"
-                                       value="{{ event.title }}"
-                                       disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea type="text" class="form-control" id="description"
-                                          name="description" disabled>{{ event.description }}</textarea>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="start_date">Date de début</label>
-                                    <input type="text" class="form-control" id="start_date" name="start_date"
-                                           value="{{ event.start_date }}" disabled>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="end_date">Date de fin</label>
-                                    <input type="text" class="form-control" id="end_date"
-                                           name="end_date" value="{{ event.end_date }}" disabled>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="end_inscrip_date">Date de fin d'inscription</label>
-                                    <input type="text" class="form-control" id="end_inscrip_date"
-                                           name="end_inscrip_date" value="{{ event.end_inscrip_date }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="max_place_student">Places restantes (internes)</label>
-                                    <input type="text" class="form-control" id="max_place_student"
-                                           value="{% if event.display_available_places %}{{ event.nb_places_student }}{% else %}Not visible{% endif %}"
-                                           disabled>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="max_place_ext">Places restantes (externes)</label>
-                                    <input type="text" class="form-control" id="max_place_ext"
-                                           value="{% if event.display_available_places %}{{ event.nb_places_extern }}{% else %}Not visible{% endif %}"
-                                           disabled>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">S'inscrire</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endif %}
+</div>
+<!-- Fin du formulaire de création d'événement -->
 
 </body>
 </html>
