@@ -39,9 +39,7 @@ def success(request):
         if form.is_valid():
             form.save()
             return render(request, 'success.html')
-        else:
-            return HttpResponseRedirect("https://google.fr")
-    return HttpResponseRedirect('index.html')
+    return HttpResponseRedirect('success.html')
 
 
 def inscription(request):

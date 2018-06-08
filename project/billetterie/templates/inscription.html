@@ -289,7 +289,7 @@
         },
 
         onAuthorize: function (data, actions) {
-            return actions.payment.execute().then(function (payment) {
+            return actions.payment.get().then(function (payment) {
                 $("#var1").val("ok");
                 $("#var2").val({{ event.title }});
                 $("#form").submit();
@@ -307,7 +307,7 @@
         },
 
         onError: function (err) {
-            $("#var1").val("ko");
+            $("#var1").val("error");
             $("#form").submit();
             /*
              * An error occurred during the transaction
