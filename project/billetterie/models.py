@@ -42,6 +42,7 @@ class Userevent(models.Model):
     staff = models.NullBooleanField(default=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+    token = models.CharField(max_length=64, default="NOPE")
 
 
 class Userassociation(models.Model):

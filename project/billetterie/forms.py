@@ -9,10 +9,11 @@ class UserEventForm(forms.ModelForm):
     staff = forms.NullBooleanField(required=False)
     user_id = forms.ModelChoiceField(queryset=User.objects.all())
     event_id = forms.ModelChoiceField(queryset=Event.objects.all())
+    token = forms.CharField(required=False)
 
     class Meta:
         model = Userevent
-        fields = ['billet_type', 'inside', 'staff', 'user_id', 'event_id']
+        fields = ['billet_type', 'inside', 'staff', 'user_id', 'event_id', 'token']
 
 
 class UserForm(forms.ModelForm):

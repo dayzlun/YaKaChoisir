@@ -34,7 +34,7 @@ def compte(request):
 def success(request):
     event = Event.objects.get(title=request.POST.get("var2"))
     user = User.objects.get(login=request.user.username)
-    form = UserEventForm({"user_id": user.email, "event_id": event.title})
+    form = UserEventForm({"user_id": user.email, "event_id": event.title, "token": user.email})
     if form.is_valid():
         form.save()
     return render(request, 'success.html')
