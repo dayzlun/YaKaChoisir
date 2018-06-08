@@ -1,6 +1,21 @@
 from django import forms
-from .models import Event
+from .models import Event, User
 import datetime
+
+
+class UserForm(forms.ModelForm):
+    email = forms.EmailField()
+    email_ticket = forms.EmailField()
+    password = forms.CharField(required=False)
+    login = forms.CharField()
+    firstname = forms.CharField()
+    lastname = forms.CharField()
+    student = forms.NullBooleanField()
+    access_level = forms.IntegerField(required=False)
+
+    class Meta:
+        model = User
+        fields = ['email', 'email_ticket', 'password', 'login', 'firstname', 'lastname', 'student', 'access_level']
 
 
 class EventForm(forms.ModelForm):

@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    email = models.CharField(max_length=64, default="", primary_key=True)
-    email_ticket = models.CharField(max_length=64)
+    email = models.EmailField(max_length=64, default="", primary_key=True)
+    email_ticket = models.EmailField(max_length=64)
     password = models.CharField(max_length=64, default="")
     login = models.CharField(max_length=64)
     firstname = models.CharField(max_length=64, default="")

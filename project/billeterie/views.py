@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from .forms import EventForm
-from .models import Event
+from .forms import *
+from .models import Event, User
 
 
 # Create your views here.
@@ -20,6 +20,10 @@ def getEvents(request):
 
 @login_required
 def compte(request):
+    form = UserForm({'email': request.user.email, 'email_ticket': request.user.email, 'login': request.user.username,
+                     'firstname': request.user.first_name, 'lastname': request.user.last_name, 'student': True})
+    if form.is_valid():
+        form.save()
     context = {
         'user': request.user,
         'extra_data': request.user.social_auth.get(provider="epita").extra_data,
