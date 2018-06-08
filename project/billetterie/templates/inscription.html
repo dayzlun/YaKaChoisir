@@ -246,7 +246,8 @@
     <div class="row event-all justify-content-center">
         <div class="col-8">
             <div class="alert alert-success">
-                Cliquez pour finaliser votre inscription à <b>{{ event.title }}</b> en payant <b>{{ event.price_student }}€</b> via PayPal
+                Cliquez pour finaliser votre inscription à <b>{{ event.title }}</b> en payant
+                <b>{{ event.price_student }}€</b> via PayPal
             </div>
             <div id="paypal-button"></div>
         </div>
@@ -291,7 +292,7 @@
         onAuthorize: function (data, actions) {
             return actions.payment.get().then(function (payment) {
                 $("#var1").val("ok");
-                $("#var2").val({{ event.title }});
+                $("#var2").val("{{ event.title }}");
                 $("#form").submit();
                 // The payment is complete!
                 // You can now show a confirmation message to the customer
@@ -300,6 +301,7 @@
 
         onCancel: function (data, actions) {
             $("#var1").val("ko");
+            $("#var2").val("{{ event.title }}");
             $("#form").submit();
             /*
              * Buyer cancelled the payment
@@ -308,6 +310,7 @@
 
         onError: function (err) {
             $("#var1").val("error");
+            $("#var2").val("{{ event.title }}");
             $("#form").submit();
             /*
              * An error occurred during the transaction

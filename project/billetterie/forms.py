@@ -1,13 +1,19 @@
 from django import forms
-from .models import Event, User
+from .models import Event, User, Userevent
 import datetime
 
+
 class UserEventForm(forms.ModelForm):
-    billet_type = forms.IntegerField()
-    inside = forms.BooleanField()
-    staff = forms.BooleanField()
+    billet_type = forms.IntegerField(required=False)
+    inside = forms.NullBooleanField(required=False)
+    staff = forms.NullBooleanField(required=False)
     user_id = forms.ModelChoiceField(queryset=User.objects.all())
     event_id = forms.ModelChoiceField(queryset=Event.objects.all())
+
+    class Meta:
+        model = Userevent
+        fields = ['billet_type', 'inside', 'staff', 'user_id', 'event_id']
+
 
 class UserForm(forms.ModelForm):
     email = forms.EmailField()
