@@ -40,6 +40,15 @@ def success(request):
     return render(request, 'success.html')
 
 
+def api(request):
+    token = request.GET.get("token")
+    try:
+        userevent = Userevent.objects.get(token=token)
+    except Userevent.DoesNotExist:
+        return JsonResponse("False", safe=False)
+    return JsonResponse(userevent.user_id + " can enter", safe=False)
+
+
 def inscription(request):
     name = request.POST.get("name")
     event = Event.objects.get(title=name)

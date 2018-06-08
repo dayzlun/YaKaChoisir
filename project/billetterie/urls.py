@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^compte.html$', compte, name="compte"),
     url(r'^inscription.html$', inscription, name="inscription"),
     url(r'^success.html$', success, name="success"),
+    url(r'^api/$', api, name="api"),
     url(r'^ajax/get_events/$', getEvents, name="getEvents"),
 ]
