@@ -45,8 +45,15 @@ def api(request):
     try:
         userevent = Userevent.objects.get(token=token)
     except Userevent.DoesNotExist:
-        return JsonResponse("False", safe=False)
-    return JsonResponse(userevent.user_id + " can enter", safe=False)
+        return JsonResponse("Token introuvable.", safe=False)
+    if userevent.inside:
+        userevent.inside = False
+        userevent.save()
+        return JsonResponse(userevent.serializable_value("user_id") + " est dedans, il peut sortir.", safe=False)
+    else:
+        userevent.inside = True
+        userevent.save()
+        return JsonResponse(userevent.serializable_value("user_id") + " est dehors, il peut rentrer.", safe=False)
 
 
 def inscription(request):
