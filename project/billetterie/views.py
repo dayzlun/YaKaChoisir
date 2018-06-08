@@ -39,7 +39,7 @@ def success(request):
         if form.is_valid():
             form.save()
             return render(request, 'success.html')
-    return HttpResponseRedirect('success.html')
+    return render(request, 'success.html')
 
 
 def inscription(request):
