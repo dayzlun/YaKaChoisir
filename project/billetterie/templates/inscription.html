@@ -42,6 +42,11 @@
     <script src="{% static "locales/bootstrap-datepicker.fr.min.js" %}" charset="UTF-8"></script>
     <script src="{% static "locales/bootstrap-datepicker.fr-CH.min.js" %}" charset="UTF-8"></script>
 
+    <!-- PayPal -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
     <script>
         $(function () {
             $("input[type='password'][data-eye]").each(function (i) {
@@ -242,10 +247,60 @@
         <div class="col-8">
             <div class="alert alert-success">
                 Vous allez être redirigé vers PayPal !
+                <div id="paypal-button"></div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    paypal.Button.render({
+        env: 'sandbox', // Or 'sandbox',
+
+        commit: true, // Show a 'Pay Now' button
+
+        client: {
+            sandbox: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM",
+            productio: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM"
+        },
+
+        style: {
+            color: 'gold',
+            size: 'small'
+        },
+
+        payment: function (data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: {total: {{  }}, currency: 'EUR'}
+                        }
+                    ]
+                }
+            });
+        },
+
+        onAuthorize: function (data, actions) {
+            return actions.payment.execute().then(function (payment) {
+
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+            });
+        },
+
+        onCancel: function (data, actions) {
+            /*
+             * Buyer cancelled the payment
+             */
+        },
+
+        onError: function (err) {
+            /*
+             * An error occurred during the transaction
+             */
+        }
+    }, '#paypal-button');
+</script>
 <!-- Fin du formulaire de création d'événement -->
 
 </body>
