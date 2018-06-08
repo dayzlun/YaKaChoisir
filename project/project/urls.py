@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include((social_django_urls, "social_django_app"), namespace='social')),
     url(r'^logout/', logout, {'next_page': '/connexion.html'}, name="logout"),
-    url(r'^', include('billeterie.urls')),
+    url(r'^', include('billetterie.urls')),
 ]

@@ -2,9 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib.auth.models import User
 
 from .forms import *
-from .models import Event, User
+from .models import Event
 
 
 # Create your views here.
