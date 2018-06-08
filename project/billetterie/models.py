@@ -37,8 +37,8 @@ class Association(models.Model):
 
 
 class Userevent(models.Model):
-    billet_type = models.IntegerField()
-    inside = models.BooleanField()
+    billet_type = models.IntegerField(default=0)
+    inside = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)

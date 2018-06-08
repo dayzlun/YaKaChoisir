@@ -2,10 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.contrib.auth.models import User
 
 from .forms import *
-from .models import Event
+from .models import *
 
 
 # Create your views here.
@@ -32,8 +31,26 @@ def compte(request):
     return render(request, 'compte.html', context)
 
 
+def success(request):
+    if request.POST.get("var1") == "ok":
+        event = Event.objects.get(title=request.POST.get("var2"))
+        user = User.objects.get(login=request.user.username)
+        form = UserEventForm({"user_id": user, "event_id": event})
+        if form.is_valid():
+            form.save()
+            return render(request, 'success.html')
+        else:
+            return HttpResponseRedirect("https://google.fr")
+    return HttpResponseRedirect('index.html')
+
+
 def inscription(request):
-    return render(request, 'inscription.html')
+    name = request.POST.get("name")
+    event = Event.objects.get(title=name)
+    if event:
+        return render(request, 'inscription.html', {"event": event})
+    else:
+        return HttpResponseRedirect('index.html')
 
 
 def connexion(request):

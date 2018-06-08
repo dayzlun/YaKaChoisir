@@ -290,6 +290,8 @@
                                 <input type="text" class="form-control" id="title" name="title"
                                        value="{{ event.title }}"
                                        disabled>
+                                <input type="hidden" class="form-control" id="title" name="name"
+                                       value="{{ event.title }}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
@@ -325,6 +327,30 @@
                                     <input type="text" class="form-control" id="max_place_ext"
                                            value="{% if event.display_available_places %}{{ event.nb_places_extern }}{% else %}Not visible{% endif %}"
                                            disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="price_student">Prix internes</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="price_student"
+                                               name="price_student" placeholder="30"
+                                               value="{{ event.price_student }}" disabled>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="price_extern">Prix externes</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="price_extern"
+                                               name="price_extern" placeholder="0" value="{{ event.price_extern }}" disabled>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">S'inscrire</button>

@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^all_event.html$', allEvent, name="allEvent"),
     url(r'^compte.html$', compte, name="compte"),
     url(r'^inscription.html$', inscription, name="inscription"),
+    url(r'^success.html$', success, name="success"),
     url(r'^ajax/get_events/$', getEvents, name="getEvents"),
 ]

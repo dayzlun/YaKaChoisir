@@ -2,6 +2,12 @@ from django import forms
 from .models import Event, User
 import datetime
 
+class UserEventForm(forms.ModelForm):
+    billet_type = forms.IntegerField()
+    inside = forms.BooleanField()
+    staff = forms.BooleanField()
+    user_id = forms.ModelChoiceField(queryset=User.objects.all())
+    event_id = forms.ModelChoiceField(queryset=Event.objects.all())
 
 class UserForm(forms.ModelForm):
     email = forms.EmailField()

@@ -246,75 +246,12 @@
     <div class="row event-all justify-content-center">
         <div class="col-8">
             <div class="alert alert-success">
-                Cliquez pour finaliser votre inscription à <b>{{ event.title }}</b> en payant <b>{{ event.price_student }}€</b> via PayPal
+                OK
             </div>
             <div id="paypal-button"></div>
         </div>
     </div>
 </div>
-
-<form hidden action="/success.html" method="POST" id="form">
-    {% csrf_token %}
-    <input type="hidden" id="var1" name="var1" value=""/>
-    <input type="hidden" id="var2" name="var2" value=""/>
-</form>
-
-
-<script>
-    paypal.Button.render({
-        env: 'sandbox', // Or 'sandbox',
-
-        commit: true, // Show a 'Pay Now' button
-
-        client: {
-            sandbox: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM",
-            productio: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM"
-        },
-
-        style: {
-            color: 'gold',
-            size: 'small'
-        },
-
-        payment: function (data, actions) {
-            return actions.payment.create({
-                payment: {
-                    transactions: [
-                        {
-                            amount: {total: {{ event.price_student }}, currency: 'EUR'}
-                        }
-                    ]
-                }
-            });
-        },
-
-        onAuthorize: function (data, actions) {
-            return actions.payment.execute().then(function (payment) {
-                $("#var1").val("ok");
-                $("#var2").val({{ event.title }});
-                $("#form").submit();
-                // The payment is complete!
-                // You can now show a confirmation message to the customer
-            });
-        },
-
-        onCancel: function (data, actions) {
-            $("#var1").val("ko");
-            $("#form").submit();
-            /*
-             * Buyer cancelled the payment
-             */
-        },
-
-        onError: function (err) {
-            $("#var1").val("ko");
-            $("#form").submit();
-            /*
-             * An error occurred during the transaction
-             */
-        }
-    }, '#paypal-button');
-</script>
 <!-- Fin du formulaire de création d'événement -->
 
 </body>
