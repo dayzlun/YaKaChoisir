@@ -245,11 +245,17 @@
 <div class="container">
     <div class="row event-all justify-content-center">
         <div class="col-8">
-            <div class="alert alert-success">
-                Cliquez pour finaliser votre inscription à <b>{{ event.title }}</b> en payant
-                <b>{{ event.price_student }}€</b> via PayPal
-            </div>
-            <div id="paypal-button"></div>
+            {% if error %}
+                <div class="alert alert-danger">
+                    Vous êtes déjà inscrit à <b>{{ event.title }}</b>
+                </div>
+            {% else %}
+                <div class="alert alert-success">
+                    Cliquez pour finaliser votre inscription à <b>{{ event.title }}</b> en payant
+                    <b>{{ event.price_student }}€</b> via PayPal
+                </div>
+                <div id="paypal-button"></div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -260,7 +266,7 @@
     <input type="hidden" id="var2" name="var2" value=""/>
 </form>
 
-
+{% if not error %}
 <script>
     paypal.Button.render({
         env: 'sandbox', // Or 'sandbox',
@@ -318,6 +324,7 @@
         }
     }, '#paypal-button');
 </script>
+{% endif %}
 <!-- Fin du formulaire de création d'événement -->
 
 </body>

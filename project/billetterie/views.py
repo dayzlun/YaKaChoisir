@@ -35,6 +35,8 @@ def compte(request):
 def success(request):
     event = Event.objects.get(title=request.POST.get("var2"))
     user = User.objects.get(login=request.user.username)
+    if Userevent.objects.filter(event_id=event.title, user_id=user.email).exists():
+        return HttpResponseRedirect('all_event.html')
     token = get_random_string(length=32)
     while Userevent.objects.filter(token=token).exists():
         token = get_random_string(length=32)
@@ -66,6 +68,8 @@ def inscription(request):
     name = request.POST.get("name")
     event = Event.objects.get(title=name)
     if event:
+        if Userevent.objects.filter(event_id=name, user_id=request.user.email).exists():
+            return render(request, 'inscription.html', {"event": event, "error": "Déjà inscrit"})
         return render(request, 'inscription.html', {"event": event})
     else:
         return HttpResponseRedirect('index.html')
