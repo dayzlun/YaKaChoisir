@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.utils.crypto import get_random_string
 
 from .forms import *
 from .models import *
@@ -34,9 +35,14 @@ def compte(request):
 def success(request):
     event = Event.objects.get(title=request.POST.get("var2"))
     user = User.objects.get(login=request.user.username)
-    form = UserEventForm({"user_id": user.email, "event_id": event.title, "token": user.email})
-    if form.is_valid():
+    token = get_random_string(length=32)
+    while Userevent.objects.filter(token=token).exists():
+        token = get_random_string(length=32)
+    form = UserEventForm({"user_id": user.email, "event_id": event.title, "token": token})
+    if form.is_valid() and event.nb_places_student > 0:
         form.save()
+        event.nb_places_student -= 1
+        event.save()
     return render(request, 'success.html')
 
 
