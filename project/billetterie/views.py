@@ -3,6 +3,10 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.utils.crypto import get_random_string
+from django.core.mail import send_mail
+
+import qrcode
+import os
 
 from .forms import *
 from .models import *
@@ -45,6 +49,20 @@ def success(request):
         form.save()
         event.nb_places_student -= 1
         event.save()
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(token)
+        img = qr.make_image(fill_color="black", back_color="white")
+        qrname = request.user.email + "-" + event.title + ".jpg"
+        img.save(qrname)
+
+
+
+        os.remove(qrname)
     return render(request, 'success.html')
 
 

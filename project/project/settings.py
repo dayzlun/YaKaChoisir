@@ -137,3 +137,10 @@ SOCIAL_AUTH_EPITA_BETA = True
 
 LOGIN_URL = '/connexion.html'
 LOGIN_REDIRECT_URL = '/compte.html'
+
+# Email
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "yakachoichoi@gmail.com"
+EMAIL_HOST_PASSWORD = "mdrmdrmdr1"
+EMAIL_USE_TLS = True
