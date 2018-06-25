@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.utils.crypto import get_random_string
-from django.core.mail import send_mail
+from django.core.mail import *
 
 import qrcode
 import os
@@ -60,7 +60,17 @@ def success(request):
         qrname = request.user.email + "-" + event.title + ".jpg"
         img.save(qrname)
 
-
+        # Mail send
+        msg = EmailMultiAlternatives(
+            "Test mail3",
+            "<p>This is an <strong>important</strong> message. Why u no work ?</p>",
+            "yakachoichoi@gmail.com",
+            [user.email],
+        )
+        html_content = "<p>This is an <strong>important</strong> message.</p>"
+        msg.attach_alternative(html_content, "test/html")
+        msg.content_subtype = "html"
+        msg.send()
 
         os.remove(qrname)
     return render(request, 'success.html')
