@@ -1,6 +1,9 @@
+from email.mime.image import MIMEImage
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 from django.utils.crypto import get_random_string
 from django.core.mail import *
@@ -61,19 +64,28 @@ def success(request):
         img.save(qrname)
 
         # Mail send
+        html_content = render_to_string('email.html', context={"event": event}).strip()
+        subject = "Confirmation d'inscription à " + event.title
+        recipients = ['queiro_r@epita.fr']
+        reply_to = ['yakachoichoi@gmail.com']
         msg = EmailMultiAlternatives(
-            "Test mail3",
-            "<p>This is an <strong>important</strong> message. Why u no work ?</p>",
+            subject,
+            html_content,
             "yakachoichoi@gmail.com",
-            [user.email],
+            recipients,
+            reply_to=reply_to,
         )
-        html_content = "<p>This is an <strong>important</strong> message.</p>"
-        msg.attach_alternative(html_content, "test/html")
         msg.content_subtype = "html"
+        msg.mixed_subtype = 'related'
+        msg.attach_file(qrname)
         msg.send()
 
         os.remove(qrname)
     return render(request, 'success.html')
+
+
+def test(request):
+    return render(request, 'email.html')
 
 
 def api(request):
@@ -81,15 +93,17 @@ def api(request):
     try:
         userevent = Userevent.objects.get(token=token)
     except Userevent.DoesNotExist:
-        return JsonResponse("Token introuvable.", safe=False)
+        return JsonResponse("n", safe=False)
     if userevent.inside:
         userevent.inside = False
         userevent.save()
-        return JsonResponse(userevent.serializable_value("user_id") + " est dedans, il peut sortir.", safe=False)
+        return JsonResponse(["s", userevent.serializable_value("event_id"), userevent.serializable_value("user_id")],
+                            safe=False)
     else:
         userevent.inside = True
         userevent.save()
-        return JsonResponse(userevent.serializable_value("user_id") + " est dehors, il peut rentrer.", safe=False)
+        return JsonResponse(["e", userevent.serializable_value("event_id"), userevent.serializable_value("user_id")],
+                            safe=False)
 
 
 def inscription(request):
