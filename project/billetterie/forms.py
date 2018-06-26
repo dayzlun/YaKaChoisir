@@ -37,6 +37,7 @@ class EventForm(forms.ModelForm):
             'class': 'form-control'
         }
     ), label='Nom de l\'événement', max_length=64)
+    image = forms.ClearableFileInput()
     description = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control'
@@ -84,6 +85,6 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ['title', 'description', 'start_date', 'end_date', 'end_inscrip_date', 'max_place_student',
+        fields = ['title', 'image', 'description', 'start_date', 'end_date', 'end_inscrip_date', 'max_place_student',
                   'max_place_ext', 'price_student', 'price_extern', 'display_available_places', 'premium',
                   'nb_places_student', 'nb_places_extern']

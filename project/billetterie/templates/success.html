@@ -245,8 +245,11 @@
 <div class="container">
     <div class="row event-all justify-content-center">
         <div class="col-8">
-            <div class="alert alert-success">
-                Vous êtes inscrit !
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Bravo !</h4>
+                <p>Vous êtes inscrit !</p>
+                <hr>
+                <p class="mb-0">Vous allez recevoir un email de confirmation à <i>{{ user.email }}</i> sous peu.</p>
             </div>
             <div id="paypal-button"></div>
         </div>

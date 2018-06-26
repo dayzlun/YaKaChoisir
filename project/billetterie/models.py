@@ -15,6 +15,7 @@ class User(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=64, primary_key=True)
+    image = models.ImageField()
     description = models.CharField(max_length=64)
     start_date = models.DateField()
     end_date = models.DateField()
