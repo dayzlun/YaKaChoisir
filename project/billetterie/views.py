@@ -51,9 +51,6 @@ def success(request):
         token = get_random_string(length=32)
     form = UserEventForm({"user_id": user.email, "event_id": event.title, "token": token})
     if form.is_valid() and event.nb_places_student > 0:
-        form.save()
-        event.nb_places_student -= 1
-        event.save()
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -81,8 +78,11 @@ def success(request):
         msg.mixed_subtype = 'related'
         msg.attach_file(qrname)
         msg.send()
-
         os.remove(qrname)
+
+        form.save()
+        event.nb_places_student -= 1
+        event.save()
     return render(request, 'success.html')
 
 

@@ -1,11 +1,12 @@
 <h1>Félicitations !</h1>
 <p>Vous êtes inscrit à <b>{{ event.title }}</b>.</p>
 <ul>
-    <li>{{ event.title }}</li>
-    <li>{{ event.description }}</li>
-    <li>{{ event.start_date }}</li>
-    <li>{{ event.end_date }}</li>
-    <li>{{ event.end_inscrip_date }}</li>
-    <li>{{ event.premium }}</li>
+    <li>Nom de l'évènement: {{ event.title }}</li>
+    <li>Description: {{ event.description }}</li>
+    <li>Date de début: {{ event.start_date }}</li>
+    <li>Date de fin: {{ event.end_date }}</li>
+    {% if event.premium %}
+        <li>Evènement <b>Premium</b></li>
+    {% endif %}
 </ul>
 <h3 style="color:red">Vous trouverez votre billet en annexe de cet email.</h3>
