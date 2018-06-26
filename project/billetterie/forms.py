@@ -37,7 +37,7 @@ class EventForm(forms.ModelForm):
             'class': 'form-control'
         }
     ), label='Nom de l\'événement', max_length=64)
-    image = forms.ClearableFileInput()
+    image = forms.ImageField()
     description = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control'

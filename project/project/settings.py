@@ -123,6 +123,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Image
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'billetterie/media')
+
 AUTHENTICATION_BACKENDS = (
     'epita_connect.backend.EpitaOpenIdConnect',
     'django.contrib.auth.backends.ModelBackend',
@@ -144,3 +148,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "yakachoichoi@gmail.com"
 EMAIL_HOST_PASSWORD = "mdrmdrmdr1"
 EMAIL_USE_TLS = True
+

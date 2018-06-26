@@ -143,6 +143,7 @@ class createEvent(TemplateView):
         copy['nb_places_student'] = copy['max_place_student']
         form = EventForm(copy)
         if form.is_valid():
+            form.image = form.cleaned_data['image']
             form.save()
             return HttpResponseRedirect('all_event.html')
         else:
