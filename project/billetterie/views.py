@@ -40,6 +40,8 @@ def compte(request):
 
 
 def success(request):
+    if not request.POST.get("var2"):
+        return HttpResponseRedirect("index.html")
     event = Event.objects.get(title=request.POST.get("var2"))
     user = User.objects.get(login=request.user.username)
     if Userevent.objects.filter(event_id=event.title, user_id=user.email).exists():
@@ -66,12 +68,12 @@ def success(request):
         # Mail send
         html_content = render_to_string('email.html', context={"event": event}).strip()
         subject = "Confirmation d'inscription à " + event.title
-        recipients = ['queiro_r@epita.fr']
+        recipients = [user.email]
         reply_to = ['yakachoichoi@gmail.com']
         msg = EmailMultiAlternatives(
             subject,
             html_content,
-            "yakachoichoi@gmail.com",
+            "Billetterie EPITA",
             recipients,
             reply_to=reply_to,
         )
@@ -112,7 +114,10 @@ def inscription(request):
     if event:
         if Userevent.objects.filter(event_id=name, user_id=request.user.email).exists():
             return render(request, 'inscription.html', {"event": event, "error": "Déjà inscrit"})
-        return render(request, 'inscription.html', {"event": event})
+        elif not event.nb_places_student:
+            return render(request, 'inscription.html', {"event": event, "noplace": "Plus de places"})
+        else:
+            return render(request, 'inscription.html', {"event": event})
     else:
         return HttpResponseRedirect('index.html')
 
@@ -154,10 +159,14 @@ def event(request):
     if name is not None:
         try:
             ev = Event.objects.get(title=name)
+            context = {
+                'event': ev,
+                'inscrit': Userevent.objects.filter(user_id=request.user.email, event_id=name).exists()
+            }
         except Event.DoesNotExist:
             return render(request, 'event.html')
         if ev is not None:
-            return render(request, 'event.html', {'event': ev})
+            return render(request, 'event.html', context)
     return render(request, 'event.html')
 
 

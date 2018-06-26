@@ -346,14 +346,19 @@
                                     <label for="price_extern">Prix externes</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="price_extern"
-                                               name="price_extern" placeholder="0" value="{{ event.price_extern }}" disabled>
+                                               name="price_extern" placeholder="0" value="{{ event.price_extern }}"
+                                               disabled>
                                         <div class="input-group-append">
                                             <span class="input-group-text">€</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">S'inscrire</button>
+                            {% if inscrit %}
+                                <button class="btn btn-success" disabled>Inscrit</button>
+                            {% else %}
+                                <button type="submit" class="btn btn-primary">S'inscrire</button>
+                            {% endif %}
                         </form>
                     </div>
                 </div>

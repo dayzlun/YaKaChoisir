@@ -249,6 +249,10 @@
                 <div class="alert alert-danger">
                     Vous êtes déjà inscrit à <b>{{ event.title }}</b>
                 </div>
+            {% elif noplace %}
+                <div class="alert alert-danger">
+                    <b>{{ event.title }}</b> n'a plus de places.
+                </div>
             {% else %}
                 <div class="alert alert-success">
                     Cliquez pour finaliser votre inscription à <b>{{ event.title }}</b> en payant
@@ -266,64 +270,64 @@
     <input type="hidden" id="var2" name="var2" value=""/>
 </form>
 
-{% if not error %}
-<script>
-    paypal.Button.render({
-        env: 'sandbox', // Or 'sandbox',
+{% if not error and not noplace %}
+    <script>
+        paypal.Button.render({
+            env: 'sandbox', // Or 'sandbox',
 
-        commit: true, // Show a 'Pay Now' button
+            commit: true, // Show a 'Pay Now' button
 
-        client: {
-            sandbox: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM",
-            productio: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM"
-        },
+            client: {
+                sandbox: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM",
+                productio: "AfRZHxjcDp7lTYjrNof2Jh6zt5sYCYGPdigzdInmVAo1T9QPulr5RfM7feGs7G_ii6IywjFNc27IoVVM"
+            },
 
-        style: {
-            color: 'gold',
-            size: 'small'
-        },
+            style: {
+                color: 'gold',
+                size: 'small'
+            },
 
-        payment: function (data, actions) {
-            return actions.payment.create({
-                payment: {
-                    transactions: [
-                        {
-                            amount: {total: {{ event.price_student }}, currency: 'EUR'}
-                        }
-                    ]
-                }
-            });
-        },
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: {total: {{ event.price_student }}, currency: 'EUR'}
+                            }
+                        ]
+                    }
+                });
+            },
 
-        onAuthorize: function (data, actions) {
-            return actions.payment.get().then(function (payment) {
-                $("#var1").val("ok");
+            onAuthorize: function (data, actions) {
+                return actions.payment.get().then(function (payment) {
+                    $("#var1").val("ok");
+                    $("#var2").val("{{ event.title }}");
+                    $("#form").submit();
+                    // The payment is complete!
+                    // You can now show a confirmation message to the customer
+                });
+            },
+
+            onCancel: function (data, actions) {
+                $("#var1").val("ko");
                 $("#var2").val("{{ event.title }}");
                 $("#form").submit();
-                // The payment is complete!
-                // You can now show a confirmation message to the customer
-            });
-        },
+                /*
+                 * Buyer cancelled the payment
+                 */
+            },
 
-        onCancel: function (data, actions) {
-            $("#var1").val("ko");
-            $("#var2").val("{{ event.title }}");
-            $("#form").submit();
-            /*
-             * Buyer cancelled the payment
-             */
-        },
-
-        onError: function (err) {
-            $("#var1").val("error");
-            $("#var2").val("{{ event.title }}");
-            $("#form").submit();
-            /*
-             * An error occurred during the transaction
-             */
-        }
-    }, '#paypal-button');
-</script>
+            onError: function (err) {
+                $("#var1").val("error");
+                $("#var2").val("{{ event.title }}");
+                $("#form").submit();
+                /*
+                 * An error occurred during the transaction
+                 */
+            }
+        }, '#paypal-button');
+    </script>
 {% endif %}
 <!-- Fin du formulaire de création d'événement -->
 
