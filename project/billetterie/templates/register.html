@@ -259,39 +259,45 @@
         <div class="card-wrapper d-flex justify-content-center align-items-center h100">
             <div class="card fat" id="vertical">
                 <div class="card-body">
-                    <h4 class="card-title"><b>Connexion</b></h4>
+                    <h4 class="card-title"><b>Inscription</b></h4>
                     <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">Nom
+                            </label>
+                            <input id="name" type="text" class="form-control" name="lastname" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="fname">Prénom
+                            </label>
+                            <input id="fname" type="text" class="form-control" name="firstname" required>
+                        </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-
-                            <input id="email" type="email" class="form-control" name="email" value="" required
-                                   autofocus>
+                            <input id="email" type="email" class="form-control" name="email" value="" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Mot de passe
-                                <a href="" class="float-right" tabindex="-1">
-                                    Mot de passe oublié ?
-                                </a>
                             </label>
                             <input id="password" type="password" class="form-control" name="password" required
                                    data-eye>
                         </div>
-
+                        <div class="form-group">
+                            <label for="password2">Confirmation du mot de passe
+                            </label>
+                            <input id="password2" type="password" class="form-control" name="password2" required
+                                   data-eye>
+                        </div>
                         <div class="form-group">
                             <button type="submit"
                                     class="btn btn-primary btn-block">
-                                Se connecter
+                                S'inscrire
                             </button>
                         </div>
                         <div class="margin-top20 text-center">
-                            Pas encore de compte ? <a href="register.html" tabindex="-1">Créer un compte</a>
+                            Vous avez déjà un compte ? <a href="connexion.html" tabindex="-1">Se connecter</a>
                         </div>
                     </form>
-                    <hr>
-                    <a href="{% url 'social:begin' backend='epita' %}"
-                       class="btn btn-dark btn-block">
-                        Connexion <span class=" badge badge-primary">CRI</span>
-                    </a>
                 </div>
             </div>
         </div>

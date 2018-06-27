@@ -1,3 +1,4 @@
+import hashlib
 from email.mime.image import MIMEImage
 
 from django.contrib.auth.decorators import login_required
@@ -88,6 +89,25 @@ def success(request):
 
 def test(request):
     return render(request, 'success.html')
+
+
+def register(request):
+    if request.method == "GET":
+        return render(request, 'register.html')
+    elif request.method == "POST":
+        copy = request.POST.copy()
+        if copy['password'] == copy['password2']:
+            copy['password'] = hashlib.sha256(copy['password'].encode("utf-8")).hexdigest()
+        else:
+            return render(request, 'register.html')
+        form = UserForm(
+            {'email': copy['email'], 'email_ticket': copy['email'], 'password': copy['password'], 'login': 'nologin',
+             'firstname': copy['firstname'], 'lastname': copy['lastname'], 'student': False})
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('connexion.html')
+        else:
+            return render(request, 'register.html', {"form": form})
 
 
 def api(request):

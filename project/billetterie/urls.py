@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^api/$', api, name="api"),
     url(r'^ajax/get_events/$', getEvents, name="getEvents"),
     url(r'^test$', test, name="test"),
+    url(r'^register.html$', register, name="register"),
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
