@@ -59,7 +59,7 @@ def success(request):
         )
         qr.add_data(token)
         img = qr.make_image(fill_color="black", back_color="white")
-        qrname = request.user.email + "-" + event.title + ".jpg"
+        qrname = request.user.email + "-" + event.title + ".png"
         img.save(qrname)
 
         # Mail send
