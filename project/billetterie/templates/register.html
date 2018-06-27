@@ -82,6 +82,24 @@
                     }
                 });
             });
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
         });
     </script>
 
@@ -260,21 +278,24 @@
             <div class="card fat" id="vertical">
                 <div class="card-body">
                     <h4 class="card-title"><b>Inscription</b></h4>
-                    <form method="POST">
+                    <form class="needs-validation" action="" method="POST" novalidate>
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="name">Nom
                             </label>
-                            <input id="name" type="text" class="form-control" name="lastname" required autofocus>
+                            <input id="name" type="text" class="form-control" name="lastname"
+                                   value="{{ lastname }}" required autofocus>
                         </div>
                         <div class="form-group">
                             <label for="fname">Prénom
                             </label>
-                            <input id="fname" type="text" class="form-control" name="firstname" required>
+                            <input id="fname" type="text" class="form-control" name="firstname"
+                                   value="{{ firstname }}" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input id="email" type="email" class="form-control" name="email" value="" required>
+                            <input id="email" type="email" class="form-control" name="email"
+                                   value="{{ email }}" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Mot de passe

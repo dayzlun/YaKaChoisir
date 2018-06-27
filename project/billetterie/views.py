@@ -99,7 +99,8 @@ def register(request):
         if copy['password'] == copy['password2']:
             copy['password'] = hashlib.sha256(copy['password'].encode("utf-8")).hexdigest()
         else:
-            return render(request, 'register.html')
+            return render(request, 'register.html',
+                          {"email": copy["email"], "firstname": copy["firstname"], "lastname": copy["lastname"]})
         form = UserForm(
             {'email': copy['email'], 'email_ticket': copy['email'], 'password': copy['password'], 'login': 'nologin',
              'firstname': copy['firstname'], 'lastname': copy['lastname'], 'student': False})
@@ -107,7 +108,8 @@ def register(request):
             form.save()
             return HttpResponseRedirect('connexion.html')
         else:
-            return render(request, 'register.html', {"form": form})
+            return render(request, 'register.html',
+                          {"email": copy["email"], "firstname": copy["firstname"], "lastname": copy["lastname"]})
 
 
 def api(request):
