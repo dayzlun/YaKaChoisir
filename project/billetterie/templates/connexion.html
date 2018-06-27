@@ -260,7 +260,8 @@
             <div class="card fat" id="vertical">
                 <div class="card-body">
                     <h4 class="card-title"><b>Connexion</b></h4>
-                    <form method="POST">
+                    <form method="POST" action="">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label for="email">Email</label>
 

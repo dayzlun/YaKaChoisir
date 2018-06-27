@@ -1,6 +1,7 @@
 import hashlib
 from email.mime.image import MIMEImage
 
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
@@ -147,8 +148,11 @@ def inscription(request):
 def connexion(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('compte.html')
-    else:
-        return render(request, 'connexion.html')
+#    elif request.method == 'POST':
+#        user = authenticate(email=request.POST.get("email"), password=request.POST.get("password")
+#        if user is not None:
+#            return HttpResponseRedirect('index.html')
+    return render(request, 'connexion.html')
 
 
 class createEvent(TemplateView):
