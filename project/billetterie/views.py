@@ -65,7 +65,7 @@ def success(request):
         # Mail send
         html_content = render_to_string('email.html', context={"event": event}).strip()
         subject = "Confirmation d'inscription à " + event.title
-        recipients = ["queiro_r@epita.fr"]
+        recipients = [user.email]
         reply_to = ['yakachoichoi@gmail.com']
         msg = EmailMultiAlternatives(
             subject,
