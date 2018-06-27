@@ -43,7 +43,7 @@ def success(request):
     if not request.POST.get("var2"):
         return HttpResponseRedirect("index.html")
     event = Event.objects.get(title=request.POST.get("var2"))
-    user = UserModel.objects.get(login=request.user.username)
+    user = UserModel.objects.get(email=request.user.email)
     if Userevent.objects.filter(event_id=event.title, user_id=user.email).exists():
         return HttpResponseRedirect('all_event.html')
     token = get_random_string(length=32)
