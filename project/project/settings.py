@@ -143,4 +143,3 @@ EMAIL_HOST_USER = "yakachoichoi@gmail.com"
 EMAIL_HOST_PASSWORD = "mdrmdrmdr1"
 EMAIL_USE_TLS = True
 
-

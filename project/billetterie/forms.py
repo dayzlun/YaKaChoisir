@@ -1,5 +1,5 @@
 from django import forms
-from .models import Event, User, Userevent
+from .models import Event, UserModel, Userevent
 import datetime
 
 
@@ -7,7 +7,7 @@ class UserEventForm(forms.ModelForm):
     billet_type = forms.IntegerField(required=False)
     inside = forms.NullBooleanField(required=False)
     staff = forms.NullBooleanField(required=False)
-    user_id = forms.ModelChoiceField(queryset=User.objects.all())
+    user_id = forms.ModelChoiceField(queryset=UserModel.objects.all())
     event_id = forms.ModelChoiceField(queryset=Event.objects.all())
     token = forms.CharField(required=False)
 
@@ -27,7 +27,7 @@ class UserForm(forms.ModelForm):
     access_level = forms.IntegerField(required=False)
 
     class Meta:
-        model = User
+        model = UserModel
         fields = ['email', 'email_ticket', 'password', 'login', 'firstname', 'lastname', 'student', 'access_level']
 
 

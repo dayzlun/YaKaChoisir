@@ -1,17 +1,16 @@
 import hashlib
-from email.mime.image import MIMEImage
+import os
 
-from django.contrib.auth import authenticate
+import qrcode
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.mail import *
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.views.generic import TemplateView
 from django.utils.crypto import get_random_string
-from django.core.mail import *
-
-import qrcode
-import os
+from django.views.generic import TemplateView
+from django.contrib.auth.models import User
 
 from .forms import *
 from .models import *
@@ -35,8 +34,7 @@ def compte(request):
     if form.is_valid():
         form.save()
     context = {
-        'user': request.user,
-        'extra_data': request.user.social_auth.get(provider="epita").extra_data,
+        'user': request.user
     }
     return render(request, 'compte.html', context)
 
@@ -45,7 +43,7 @@ def success(request):
     if not request.POST.get("var2"):
         return HttpResponseRedirect("index.html")
     event = Event.objects.get(title=request.POST.get("var2"))
-    user = User.objects.get(login=request.user.username)
+    user = UserModel.objects.get(login=request.user.username)
     if Userevent.objects.filter(event_id=event.title, user_id=user.email).exists():
         return HttpResponseRedirect('all_event.html')
     token = get_random_string(length=32)
@@ -97,6 +95,7 @@ def register(request):
         return render(request, 'register.html')
     elif request.method == "POST":
         copy = request.POST.copy()
+        passw = copy["password"]
         if copy['password'] == copy['password2']:
             copy['password'] = hashlib.sha256(copy['password'].encode("utf-8")).hexdigest()
         else:
@@ -106,6 +105,10 @@ def register(request):
             {'email': copy['email'], 'email_ticket': copy['email'], 'password': copy['password'], 'login': 'nologin',
              'firstname': copy['firstname'], 'lastname': copy['lastname'], 'student': False})
         if form.is_valid():
+            user = User.objects.create_user(copy["email"], copy["email"], passw)
+            user.first_name = copy["firstname"]
+            user.last_name = copy["lastname"]
+            user.save()
             form.save()
             return HttpResponseRedirect('connexion.html')
         else:
@@ -148,10 +151,11 @@ def inscription(request):
 def connexion(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('compte.html')
-#    elif request.method == 'POST':
-#        user = authenticate(email=request.POST.get("email"), password=request.POST.get("password")
-#        if user is not None:
-#            return HttpResponseRedirect('index.html')
+    elif request.method == 'POST':
+        user = authenticate(username=request.POST.get("email"), password=request.POST.get("password"))
+        login(request, user)
+        if user is not None:
+            return HttpResponseRedirect('index.html')
     return render(request, 'connexion.html')
 
 

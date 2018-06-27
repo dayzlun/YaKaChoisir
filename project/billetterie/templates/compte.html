@@ -249,8 +249,8 @@
             <div class="card" id="vertical">
                 <div class="card-header">{{ user.first_name }} {{ user.last_name }}</div>
                 <div class="card-body">
-                    <p class="card-text">Login: {{ user.username }}</p>
-                    <p class="card-text">Promo: {{ extra_data.promo }}</p>
+                    <p class="card-text">Prénom: {{ user.first_name }}</p>
+                    <p class="card-text">Nom: {{ user.last_name }}</p>
                     <p class="card-text">Email: {{ user.email }}</p>
                     <button type="button" class="btn-block btn btn-success" onclick="location.href = '/logout'">
                         Déconnexion
